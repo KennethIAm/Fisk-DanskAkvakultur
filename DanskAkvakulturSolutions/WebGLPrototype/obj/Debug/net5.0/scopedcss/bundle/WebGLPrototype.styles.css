@@ -1,0 +1,227 @@
+/* _content/WebGLPrototype/Pages/MyGame.razor.rz.scp.css */
+.webgl-content *[b-qyozrp1cg5] {
+    border: 0;
+    margin: 0;
+    padding: 0
+}
+
+.webgl-content[b-qyozrp1cg5] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+    .webgl-content .logo[b-qyozrp1cg5], .progress[b-qyozrp1cg5] {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .webgl-content .logo[b-qyozrp1cg5] {
+        background: url('libs/MyGame/TemplateData/progressLogo.Light.png') no-repeat center / contain;
+        width: 154px;
+        height: 130px;
+    }
+
+    .webgl-content .progress[b-qyozrp1cg5] {
+        height: 18px;
+        width: 141px;
+        margin-top: 90px;
+    }
+
+        .webgl-content .progress .empty[b-qyozrp1cg5] {
+            background: url('libs/MyGame/TemplateData/progressEmpty.Light.png') no-repeat right / cover;
+            float: right;
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+        }
+
+        .webgl-content .progress .full[b-qyozrp1cg5] {
+            background: url('libs/MyGame/TemplateData/progressFull.Light.png') no-repeat left / cover;
+            float: left;
+            width: 0%;
+            height: 100%;
+            display: inline-block;
+        }
+
+    .webgl-content .logo.Dark[b-qyozrp1cg5] {
+        background-image: url('libs/MyGame/TemplateData/progressLogo.Dark.png');
+    }
+
+    .webgl-content .progress.Dark .empty[b-qyozrp1cg5] {
+        background-image: url('libs/MyGame/TemplateData/progressEmpty.Dark.png');
+    }
+
+    .webgl-content .progress.Dark .full[b-qyozrp1cg5] {
+        background-image: url('libs/MyGame/TemplateData/progressFull.Dark.png');
+    }
+
+    .webgl-content .footer[b-qyozrp1cg5] {
+        margin-top: 5px;
+        height: 38px;
+        line-height: 38px;
+        font-family: Helvetica, Verdana, Arial, sans-serif;
+        font-size: 18px;
+    }
+
+        .webgl-content .footer .webgl-logo[b-qyozrp1cg5], .title[b-qyozrp1cg5], .fullscreen[b-qyozrp1cg5] {
+            height: 100%;
+            display: inline-block;
+            background: transparent center no-repeat;
+        }
+
+        .webgl-content .footer .webgl-logo[b-qyozrp1cg5] {
+            background-image: url('libs/MyGame/TemplateData/webgl-logo.png');
+            width: 204px;
+            float: left;
+        }
+
+        .webgl-content .footer .title[b-qyozrp1cg5] {
+            margin-right: 10px;
+            float: right;
+        }
+
+        .webgl-content .footer .fullscreen[b-qyozrp1cg5] {
+            background-image: url('libs/MyGame/TemplateData/fullscreen.png');
+            width: 38px;
+            float: right;
+        }
+/* _content/WebGLPrototype/Shared/MainLayout.razor.rz.scp.css */
+.page[b-nad2z9v1hx] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-nad2z9v1hx] {
+    flex: 1;
+}
+
+.sidebar[b-nad2z9v1hx] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-nad2z9v1hx] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-nad2z9v1hx]  a, .top-row .btn-link[b-nad2z9v1hx] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-nad2z9v1hx] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-nad2z9v1hx] {
+        display: none;
+    }
+
+    .top-row.auth[b-nad2z9v1hx] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-nad2z9v1hx], .top-row .btn-link[b-nad2z9v1hx] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-nad2z9v1hx] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-nad2z9v1hx] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-nad2z9v1hx] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .main > div[b-nad2z9v1hx] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/WebGLPrototype/Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-wpxx1rj0qg] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-wpxx1rj0qg] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-wpxx1rj0qg] {
+    font-size: 1.1rem;
+}
+
+.oi[b-wpxx1rj0qg] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-wpxx1rj0qg] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-wpxx1rj0qg] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-wpxx1rj0qg] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-wpxx1rj0qg]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-wpxx1rj0qg]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-wpxx1rj0qg]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-wpxx1rj0qg] {
+        display: none;
+    }
+
+    .collapse[b-wpxx1rj0qg] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

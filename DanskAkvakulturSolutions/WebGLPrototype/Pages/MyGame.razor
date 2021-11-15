@@ -1,0 +1,44 @@
+﻿@page "/my-game"
+
+<div>
+    <p>
+        Errors:
+    </p>
+    <p>
+        @message
+    </p>
+</div>
+
+<div class="webgl-content">
+    <div id="unityContainer" style="width: 960px; height: 600px"></div>
+    <div class="footer">
+        <div class="webgl-logo"></div>
+        <div class="fullscreen" @onclick="async () => await SetFullscreen(1)"></div>
+        <div class="title">Project_Boost</div>
+    </div>
+</div>
+
+@code {
+    [Inject] IJSRuntime JS { get; set; }
+    string message;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("initializeUnityInstance", "libs/MyGame/Build/game proto.json", "{onProgress: UnityProgress}");
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+        }
+    }
+
+    private async Task SetFullscreen(int isFullscreen)
+    {
+        await JS.InvokeVoidAsync("setFullscreen", isFullscreen);
+    }
+}

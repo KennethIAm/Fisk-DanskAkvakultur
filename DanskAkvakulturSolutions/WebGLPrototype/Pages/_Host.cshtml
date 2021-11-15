@@ -15,9 +15,13 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="WebGLPrototype.styles.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="~/libs/MyGame/TemplateData/favicon.ico">
+    <script src="~/libs/MyGame/TemplateData/UnityProgress.js"></script>
+    <script src="~/libs/MyGame/Build/UnityLoader.js"></script>
 </head>
 <body>
-    <component type="typeof(App)" render-mode="ServerPrerendered" />
+    <component type="typeof(App)" render-mode="Server" />
 
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
@@ -31,5 +35,6 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+    <script src="~/unity-game.js"></script>
 </body>
 </html>

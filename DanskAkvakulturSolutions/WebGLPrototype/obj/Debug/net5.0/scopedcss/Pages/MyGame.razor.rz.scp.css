@@ -1,0 +1,92 @@
+.webgl-content *[b-qyozrp1cg5] {
+    border: 0;
+    margin: 0;
+    padding: 0
+}
+
+.webgl-content[b-qyozrp1cg5] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+    .webgl-content .logo[b-qyozrp1cg5], .progress[b-qyozrp1cg5] {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .webgl-content .logo[b-qyozrp1cg5] {
+        background: url('libs/MyGame/TemplateData/progressLogo.Light.png') no-repeat center / contain;
+        width: 154px;
+        height: 130px;
+    }
+
+    .webgl-content .progress[b-qyozrp1cg5] {
+        height: 18px;
+        width: 141px;
+        margin-top: 90px;
+    }
+
+        .webgl-content .progress .empty[b-qyozrp1cg5] {
+            background: url('libs/MyGame/TemplateData/progressEmpty.Light.png') no-repeat right / cover;
+            float: right;
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+        }
+
+        .webgl-content .progress .full[b-qyozrp1cg5] {
+            background: url('libs/MyGame/TemplateData/progressFull.Light.png') no-repeat left / cover;
+            float: left;
+            width: 0%;
+            height: 100%;
+            display: inline-block;
+        }
+
+    .webgl-content .logo.Dark[b-qyozrp1cg5] {
+        background-image: url('libs/MyGame/TemplateData/progressLogo.Dark.png');
+    }
+
+    .webgl-content .progress.Dark .empty[b-qyozrp1cg5] {
+        background-image: url('libs/MyGame/TemplateData/progressEmpty.Dark.png');
+    }
+
+    .webgl-content .progress.Dark .full[b-qyozrp1cg5] {
+        background-image: url('libs/MyGame/TemplateData/progressFull.Dark.png');
+    }
+
+    .webgl-content .footer[b-qyozrp1cg5] {
+        margin-top: 5px;
+        height: 38px;
+        line-height: 38px;
+        font-family: Helvetica, Verdana, Arial, sans-serif;
+        font-size: 18px;
+    }
+
+        .webgl-content .footer .webgl-logo[b-qyozrp1cg5], .title[b-qyozrp1cg5], .fullscreen[b-qyozrp1cg5] {
+            height: 100%;
+            display: inline-block;
+            background: transparent center no-repeat;
+        }
+
+        .webgl-content .footer .webgl-logo[b-qyozrp1cg5] {
+            background-image: url('libs/MyGame/TemplateData/webgl-logo.png');
+            width: 204px;
+            float: left;
+        }
+
+        .webgl-content .footer .title[b-qyozrp1cg5] {
+            margin-right: 10px;
+            float: right;
+        }
+
+        .webgl-content .footer .fullscreen[b-qyozrp1cg5] {
+            background-image: url('libs/MyGame/TemplateData/fullscreen.png');
+            width: 38px;
+            float: right;
+        }

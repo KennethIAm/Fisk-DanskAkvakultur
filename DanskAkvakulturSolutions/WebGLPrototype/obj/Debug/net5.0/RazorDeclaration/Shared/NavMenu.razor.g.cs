@@ -90,7 +90,7 @@ using WebGLPrototype.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "F:\Projects\github_repos\hovedforlob\h6\Fisk-DanskAkvakultur\DanskAkvakulturSolutions\WebGLPrototype\Shared\NavMenu.razor"
+#line 33 "F:\Projects\github_repos\hovedforlob\h6\Fisk-DanskAkvakultur\DanskAkvakulturSolutions\WebGLPrototype\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 
