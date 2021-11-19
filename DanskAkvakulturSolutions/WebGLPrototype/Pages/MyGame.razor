@@ -1,5 +1,7 @@
 ﻿@page "/my-game"
 
+@implements IAsyncDisposable
+
 <div>
     <p>
         Errors:
@@ -10,16 +12,24 @@
 </div>
 
 <div class="webgl-content">
-    <div id="unityContainer" style="width: 960px; height: 600px"></div>
+    <div id="@containerCssClass" style="width: 960px; height: 600px"></div>
     <div class="footer">
         <div class="webgl-logo"></div>
         <div class="fullscreen" @onclick="async () => await SetFullscreen(1)"></div>
         <div class="title">Project_Boost</div>
     </div>
+
+    <div id="loadingBox">
+        <div id="bgBar"></div>
+        <div id="progressBar"></div>
+        <p id="loadingInfo">Loading...</p>
+    </div>
 </div>
 
 @code {
     [Inject] IJSRuntime JS { get; set; }
+    string containerCssClass = "unityContainer";
+    string webGLBuildUrl = "libs/MyGame/Build/game proto.json";
     string message;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -28,7 +38,7 @@
         {
             try
             {
-                await JS.InvokeVoidAsync("initializeUnityInstance", "libs/MyGame/Build/game proto.json", "{onProgress: UnityProgress}");
+                await JS.InvokeVoidAsync("initializeUnityInstance", containerCssClass, webGLBuildUrl);
             }
             catch (Exception ex)
             {
@@ -40,5 +50,10 @@
     private async Task SetFullscreen(int isFullscreen)
     {
         await JS.InvokeVoidAsync("setFullscreen", isFullscreen);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await JS.InvokeVoidAsync("disposeUnityInstance");
     }
 }

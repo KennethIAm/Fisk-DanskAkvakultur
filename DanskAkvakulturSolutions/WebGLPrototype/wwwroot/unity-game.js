@@ -1,11 +1,25 @@
 ﻿var unityInstance;
 
-window.initializeUnityInstance = function (path, progress) {
-    unityInstance = UnityLoader.instantiate("unityContainer", "libs/MyGame/Build/game proto.json", { onProgress: UnityProgress });
+window.initializeUnityInstance = function (container, webglBuildUrl) {
+    console.log(`Container: ${container} WebGL URL: ${webglBuildUrl}`);
 
-    console.log(`Unity Instance:  ${unityInstance}`);
+    unityInstance = UnityLoader.instantiate(container, webglBuildUrl, {
+        onProgress: UnityProgress,
+        Module: {
+            onQuit: function () {
+                //console.warn("Unity is disposed.");
+                disposeUnityInstance;
+            }
+        }
+    });
 };
 
-window.setFullscreen = function (isFullscreen) {
-    unityInstance.SetFullscreen(1);
+window.disposeUnityInstance = function () {
+    if (unityInstance) {
+        unityInstance.Quit(function () {
+            console.log("Unity has quit.");
+        });
+
+        unityInstance = null;
+    }
 };
