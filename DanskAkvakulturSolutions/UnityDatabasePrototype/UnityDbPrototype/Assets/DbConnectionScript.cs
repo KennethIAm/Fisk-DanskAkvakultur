@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
+using System.Data.SqlClient;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Data.SqlClient;
-using System;
 
 public class DbConnectionScript : MonoBehaviour
 {
