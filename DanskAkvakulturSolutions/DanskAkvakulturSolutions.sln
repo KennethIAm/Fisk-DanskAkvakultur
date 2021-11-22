@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prototypes", "Prototypes", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebGLPrototype", "Prototypes\WebGLPrototype\WebGLPrototype.csproj", "{9B64876F-CECB-4B3F-82AC-EC0564EDAAD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServer", "BlazorServer\BlazorServer.csproj", "{6B0849D5-2641-471E-9CBE-A95A0B207011}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{A3865809-A834-4E09-8FE5-65B8F9CEF414}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{9B64876F-CECB-4B3F-82AC-EC0564EDAAD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B64876F-CECB-4B3F-82AC-EC0564EDAAD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B64876F-CECB-4B3F-82AC-EC0564EDAAD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0849D5-2641-471E-9CBE-A95A0B207011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0849D5-2641-471E-9CBE-A95A0B207011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0849D5-2641-471E-9CBE-A95A0B207011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B0849D5-2641-471E-9CBE-A95A0B207011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3865809-A834-4E09-8FE5-65B8F9CEF414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3865809-A834-4E09-8FE5-65B8F9CEF414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3865809-A834-4E09-8FE5-65B8F9CEF414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3865809-A834-4E09-8FE5-65B8F9CEF414}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
