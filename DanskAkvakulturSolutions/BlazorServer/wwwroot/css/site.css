@@ -41,11 +41,11 @@ h2 {
 }
 
 .footer {
-    /* position: absolute; */
+    position: absolute;
     display: flex;
-    bottom: 30%;
-    left: 50%;
-    width: auto;
+    justify-content: center;
+    bottom: 10%;
+    width: 100%;
 }
 
 #blazor-error-ui {
@@ -69,24 +69,22 @@ h2 {
 
 /* Transitions */
 button {
-    -webkit-transition: background-color 1s ease-out;
-    -moz-transition: background-color 1s ease-out;
-    -o-transition: background-color 1s ease-out;
-    transition: background-color 1s ease-out;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
 }
 
     button:after {
-        content: " ➜ ";
-        opacity: 0;
-        -webkit-transition: all 1s;
-        transition: all 1s;
+        -webkit-transition: all 500ms;
+        transition: all 500ms;
     }
 
     button:hover {
         background-color: #2FB457 !important;
         border-color: #2FB457 !important;
-        -webkit-transition: all 1s;
-        transition: all 1s;
+        -webkit-transition: all 500ms;
+        transition: all 500ms;
     }
 
     button:focus {
@@ -95,7 +93,23 @@ button {
         box-shadow: 0 0 0 0.25rem rgb(47 180 87 / 50%) !important;
     }
 
-        button:hover:after {
-            opacity: 1;
-            color: #fff;
-        }
+    button:hover:after {
+        opacity: 1;
+        color: #fff;
+        content: " ➜ ";
+        -webkit-transition: all 1s;
+        transition: all 1s;
+    }
+
+/* Scrollbar */
+
+::-webkit-scrollbar, ::-webkit-scrollbar:horizontal {
+    width: .5rem !important;
+    height: .25rem !important;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:horizontal {
+    background-color: #161616e6 !important;
+    border-radius: 4px !important;
+}
