@@ -5,10 +5,14 @@ using UnityEngine;
 public class EelController : MonoBehaviour
 {
     bool isHungry = true;
+    Eel _eel;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.AddComponent<Eel>();
+        _eel = gameObject.GetComponent<Eel>();
+        _eel.Init();
     }
 
     // Update is called once per frame
@@ -27,13 +31,12 @@ public class EelController : MonoBehaviour
     {
         print("Decrese hunger");
         yield return new WaitForSeconds(time);
-        print(gameObject.GetComponent<Eel>().hunger);
-        gameObject.GetComponent<Eel>().hunger = gameObject.GetComponent<Eel>().hunger -= 5;
+        _eel.Hunger(5);
         isHungry = true;
     }
 
     public void feedEel()
     {
-        gameObject.GetComponent<Eel>().hunger = gameObject.GetComponent<Eel>().hunger += 20;
+        _eel.Eat(20);
     }
 }
