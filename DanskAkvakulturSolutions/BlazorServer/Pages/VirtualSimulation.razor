@@ -36,47 +36,47 @@ else
 
 @code {
     [Inject] protected IJSRuntime JS { get; set; }
-
+    
     IJSObjectReference module;
-    string canvasDomID = "unity-canvas";
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            module = await JS.InvokeAsync<IJSObjectReference>("import", "./assets/demo/demo.js");
-        }
-        catch (Exception ex)
-        {
-            // Ignore.
-
-            Console.WriteLine($"Failed to load Demo: {ex.Message}");
-        }
+        await ImportGameDataAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            //if (module is null)
-            //{
-            //    var reloadModule = await JS.InvokeAsync<IJSObjectReference>("import", "./assets/demo/demo.js");
+            await LoadGameEngine();
+        }
+    }    
 
-            //    if (reloadModule is null) return;
+    private async ValueTask ImportGameDataAsync()
+    {
+        try
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "/assets/demo/demo.js");
+        }
+        catch (Exception ex)
+        {
+            // Ignore.
 
-            //    module = reloadModule;
-            //};
+            Console.WriteLine($"Failed to import Demo: {ex.Message}");
+        }
+    }
 
-            try
-            {
-                await module.InvokeVoidAsync("load");
-            }
-            catch (Exception ex)
-            {
-                // Ignore.
+    private async Task LoadGameEngine()
+    {
+        try
+        {
+            await module.InvokeVoidAsync("loadUnityEngine");
+        }
+        catch (Exception ex)
+        {
+            // Ignore.
 
-                Console.WriteLine(ex.Message);
-            }
+            Console.WriteLine($"Failed to invoke load: {ex.Message}");
         }
     }
 }

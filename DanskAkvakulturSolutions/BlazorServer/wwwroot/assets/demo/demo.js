@@ -1,5 +1,5 @@
-﻿function load() {
-    var buildUrl = "./assets/demo/Build";
+﻿export function loadUnityEngine() {
+    var buildUrl = "/assets/demo/Build";
     var loaderUrl = buildUrl + "/Unity.loader.js";
     var config = {
         dataUrl: buildUrl + "/Unity.data",
@@ -55,8 +55,4 @@
         });
     };
     document.body.appendChild(script);
-};
-
-export {
-    load
 };
