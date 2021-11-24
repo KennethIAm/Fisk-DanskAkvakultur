@@ -25,34 +25,40 @@
     // the canvas DOM size and WebGL render target sizes yourself.
     // config.matchWebGLToCanvasSize = false;
 
-    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        container.className = "unity-mobile";
-        // Avoid draining fillrate performance on mobile devices,
-        // and default/override low DPI mode on mobile browsers.
-        config.devicePixelRatio = 1;
-        mobileWarning.style.display = "block";
-        setTimeout(() => {
-            mobileWarning.style.display = "none";
-        }, 5000);
-    } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-    }
-    loadingBar.style.display = "block";
+    try {
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            container.className = "unity-mobile";
+            // Avoid draining fillrate performance on mobile devices,
+            // and default/override low DPI mode on mobile browsers.
+            config.devicePixelRatio = 1;
+            mobileWarning.style.display = "block";
+            setTimeout(() => {
+                mobileWarning.style.display = "none";
+            }, 5000);
+        } else {
+            canvas.style.width = "960px";
+            canvas.style.height = "600px";
+        }
+        loadingBar.style.display = "block";
 
-    var script = document.createElement("script");
-    script.src = loaderUrl;
-    script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-            progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-            loadingBar.style.display = "none";
-            fullscreenButton.onclick = () => {
-                unityInstance.SetFullscreen(1);
-            };
-        }).catch((message) => {
-            alert(message);
-        });
-    };
-    document.body.appendChild(script);
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+                fullscreenButton.onclick = () => {
+                    unityInstance.SetFullscreen(1);
+                };
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
+
+        return "Game engine loaded!";
+    } catch (e) {
+        return "Failed loading game engine, due to error.";
+    }
 };
