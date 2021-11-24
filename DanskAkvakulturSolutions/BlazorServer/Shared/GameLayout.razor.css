@@ -1,5 +1,23 @@
 ﻿.game-layout {
-    position: absolute;
+    position: fixed;
     display: flex;
-    width: auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    /*position: absolute;
+    display: flex;
+    width: auto;*/
+}
+
+#unity-container {
+    position: relative;
+}
+
+#unity-canvas {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    top: 0;
+    left: 50%;
 }
