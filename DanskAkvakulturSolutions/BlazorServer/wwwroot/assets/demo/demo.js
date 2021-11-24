@@ -1,4 +1,4 @@
-﻿export function unityLoader() {
+﻿function load() {
     var buildUrl = "./assets/demo/Build";
     var loaderUrl = buildUrl + "/Unity.loader.js";
     var config = {
@@ -55,4 +55,8 @@
         });
     };
     document.body.appendChild(script);
+};
+
+export {
+    load
 };

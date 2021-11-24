@@ -1,23 +1,38 @@
 ﻿@page "/virtual-simulation"
 @layout GameLayout
 
-<div id="unity-container" class="unity-desktop">
-    <canvas id="unity-canvas" width=960 height=600></canvas>
-    <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-            <div id="unity-progress-bar-full"></div>
+<head>
+    <link rel="stylesheet" href="/assets/demo/TemplateData/style.css" />
+</head>
+
+@if (module is null)
+{
+    <div class="alert alert-dark" role="alert">
+        Indlæser modul...
+    </div>
+}
+else
+{
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" width=960 height=600></canvas>
+        <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-mobile-warning">
+            WebGL builds er ikke supporteret for mobile enheder.
+            @*<div class="alert alert-warning" role="alert">
+                </div>*@
+        </div>
+        <div id="unity-footer">
+            <div id="unity-webgl-logo"></div>
+            <div id="unity-fullscreen-button"></div>
+            <div id="unity-build-title">FiskErFremtidenGameDemo</div>
         </div>
     </div>
-    <div id="unity-mobile-warning">
-        WebGL builds are not supported on mobile devices.
-    </div>
-    <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">FiskErFremtidenGameDemo</div>
-    </div>
-</div>
+}
 
 @code {
     [Inject] protected IJSRuntime JS { get; set; }
@@ -43,16 +58,18 @@
     {
         if (firstRender)
         {
-            if (module is null)
-            {
-                Console.WriteLine("Module is null.");
+            //if (module is null)
+            //{
+            //    var reloadModule = await JS.InvokeAsync<IJSObjectReference>("import", "./assets/demo/demo.js");
 
-                return;
-            };
+            //    if (reloadModule is null) return;
+
+            //    module = reloadModule;
+            //};
 
             try
             {
-                await module.InvokeVoidAsync("unityLoader");
+                await module.InvokeVoidAsync("load");
             }
             catch (Exception ex)
             {
