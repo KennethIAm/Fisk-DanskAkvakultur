@@ -18,12 +18,15 @@ public class EelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // StartCoroutine(DecreseHunger(5));
         while (isHungry)
         {
             print("Is hungry");
             isHungry = false;
             StartCoroutine(DecreseHunger(2));
+        }
+        if (!_eel.IsAlive)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -32,6 +35,10 @@ public class EelController : MonoBehaviour
         print("Decrese hunger");
         yield return new WaitForSeconds(time);
         _eel.Hunger(5);
+        if (_eel.HungerValue <= 0)
+        {
+            _eel.Die();
+        }
         isHungry = true;
     }
 
@@ -39,4 +46,6 @@ public class EelController : MonoBehaviour
     {
         _eel.Eat(20);
     }
+
+
 }
