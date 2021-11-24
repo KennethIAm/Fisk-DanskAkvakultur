@@ -1,0 +1,15 @@
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.navbar-brand {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 10rem !important;
+    height: auto !important;
+}

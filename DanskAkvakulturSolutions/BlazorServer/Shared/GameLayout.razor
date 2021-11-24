@@ -1,0 +1,80 @@
+﻿@inherits LayoutComponentBase
+@implements IAsyncDisposable
+<NavMenu />
+
+<section class="game-layout">
+    @Body
+</section>
+
+<div class="footer">
+    <div class="shadow rounded">
+        <button @onclick="Send" disabled="@(!IsConnected)" class="btn btn-primary btn-lg text-uppercase" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+            læs information
+        </button>
+    </div>
+</div>
+
+<!-- Offcanvas -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">{{ AnimalName }}</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul id="messagesList">
+            @foreach (var message in messages)
+            {
+                <li>@message</li>
+            }
+        </ul>
+        @*<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus risus at ultrices mi tempus imperdiet nulla malesuada. Viverra nam libero justo laoreet sit amet cursus sit. Amet consectetur adipiscing elit ut aliquam purus sit amet luctus. Egestas integer eget aliquet nibh praesent tristique. Eu sem integer vitae justo eget. Integer quis auctor elit sed. Leo integer malesuada nunc vel risus commodo viverra maecenas. Egestas purus viverra accumsan in nisl. Interdum velit euismod in pellentesque massa. Convallis tellus id interdum velit laoreet id donec. Consequat ac felis donec et odio pellentesque. Et pharetra pharetra massa massa ultricies mi quis hendrerit dolor. Ac auctor augue mauris augue neque gravida in. Morbi leo urna molestie at elementum eu facilisis. Id nibh tortor id aliquet lectus proin nibh nisl condimentum. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Ipsum suspendisse ultrices gravida dictum fusce ut.</p>
+            <p>Faucibus nisl tincidunt eget nullam non nisi est. Sodales ut eu sem integer vitae justo. Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum. Pulvinar sapien et ligula ullamcorper malesuada. Nisl condimentum id venenatis a condimentum vitae. Lacus sed viverra tellus in hac habitasse platea dictumst vestibulum. Habitasse platea dictumst vestibulum rhoncus est pellentesque. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Eu volutpat odio facilisis mauris sit amet massa vitae. Pulvinar proin gravida hendrerit lectus. Sapien et ligula ullamcorper malesuada proin. Vel eros donec ac odio tempor orci. Ligula ullamcorper malesuada proin libero nunc. Tempor nec feugiat nisl pretium fusce id. Vel pretium lectus quam id. Purus sit amet volutpat consequat mauris nunc. Bibendum est ultricies integer quis auctor elit sed. Amet mauris commodo quis imperdiet. Amet consectetur adipiscing elit ut aliquam.</p>
+            <p>Id diam vel quam elementum pulvinar etiam. Mi quis hendrerit dolor magna eget est lorem ipsum. Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra. Dolor morbi non arcu risus quis varius. Id venenatis a condimentum vitae sapien pellentesque habitant. Id diam vel quam elementum. Senectus et netus et malesuada fames ac turpis egestas. Nisl condimentum id venenatis a condimentum vitae sapien pellentesque. Sodales ut etiam sit amet nisl purus in mollis. Suspendisse potenti nullam ac tortor. Lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique. Lorem mollis aliquam ut porttitor leo a diam sollicitudin. Eu ultrices vitae auctor eu augue. Aliquam id diam maecenas ultricies. Viverra accumsan in nisl nisi scelerisque eu ultrices.</p>*@
+    </div>
+</div>
+
+@code {
+    [Inject] protected NavigationManager NavigationManager { get; set; }
+
+    HubConnection hubConnection = null;
+    private List<string> messages = new List<string>();
+
+    public bool IsConnected =>
+    hubConnection.State == HubConnectionState.Connected;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ConnectToHubAsync();
+    }
+
+    private async Task Send()
+    {
+        await hubConnection.SendAsync("SendMessage", $"{hubConnection.ConnectionId}", "Hello, I'm also doing a simulation!");
+    }
+
+    private async Task ConnectToHubAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/virtual-simulation-hub"))
+            .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            messages.Add(encodedMsg);
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+
+        await hubConnection.SendAsync("Connect");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+} 

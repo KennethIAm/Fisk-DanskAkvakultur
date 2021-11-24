@@ -1,0 +1,82 @@
+﻿@page "/virtual-simulation"
+@layout GameLayout
+
+<head>
+    <link rel="stylesheet" href="/assets/demo/TemplateData/style.css" />
+</head>
+
+@if (module is null)
+{
+    <div class="alert alert-dark" role="alert">
+        Indlæser modul...
+    </div>
+}
+else
+{
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" width=960 height=600></canvas>
+        <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-mobile-warning">
+            WebGL builds er ikke supporteret for mobile enheder.
+            @*<div class="alert alert-warning" role="alert">
+                </div>*@
+        </div>
+        <div id="unity-footer">
+            <div id="unity-webgl-logo"></div>
+            <div id="unity-fullscreen-button"></div>
+            <div id="unity-build-title">FiskErFremtidenGameDemo</div>
+        </div>
+    </div>
+}
+
+@code {
+    [Inject] protected IJSRuntime JS { get; set; }
+    
+    IJSObjectReference module;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ImportGameDataAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadGameEngine();
+        }
+    }    
+
+    private async ValueTask ImportGameDataAsync()
+    {
+        try
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "/assets/demo/demo.js");
+        }
+        catch (Exception ex)
+        {
+            // Ignore.
+
+            Console.WriteLine($"Failed to import Demo: {ex.Message}");
+        }
+    }
+
+    private async Task LoadGameEngine()
+    {
+        try
+        {
+            await module.InvokeVoidAsync("loadUnityEngine");
+        }
+        catch (Exception ex)
+        {
+            // Ignore.
+
+            Console.WriteLine($"Failed to invoke load: {ex.Message}");
+        }
+    }
+}
