@@ -1889,6 +1889,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1210501637, guid: 6e5ae93948d219446a52ded871d5bdc4, type: 3}
+      propertyPath: m_Constraints
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 4620904832741911235, guid: 6e5ae93948d219446a52ded871d5bdc4, type: 3}
       propertyPath: m_Name
       value: Eel
@@ -3741,6 +3745,10 @@ PrefabInstance:
     - target: {fileID: 4571407617627160800, guid: 1b8d004591ee1434e823fdcf8d227ec9, type: 3}
       propertyPath: m_Name
       value: water
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571407617627160801, guid: 1b8d004591ee1434e823fdcf8d227ec9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4571407617627160804, guid: 1b8d004591ee1434e823fdcf8d227ec9, type: 3}
       propertyPath: m_RootOrder

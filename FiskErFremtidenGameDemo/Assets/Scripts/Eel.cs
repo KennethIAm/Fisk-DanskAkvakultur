@@ -7,7 +7,7 @@ public class Eel : MonoBehaviour
     private float _hungerValue;
     private bool _isAlive;
 
-    public void Init(float hungerValue = 20f, bool isalive = true)
+    public void Init(float hungerValue = 50f, bool isalive = true)
     {
         _hungerValue = hungerValue;
         _isAlive = isalive;
