@@ -16,6 +16,11 @@ namespace BlazorServer.Data.Hubs
             _logger = logger;
         }
 
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+
         [Obsolete("This is a test method, not to be used by any clients.")]
         public async Task Test()
         {

@@ -20,8 +20,8 @@
     </div>
     <div id="unity-mobile-warning">
         WebGL builds er ikke supporteret for mobile enheder.
-        @*<div class="alert alert-warning" role="alert">
-            </div>*@
+        <div class="alert alert-warning" role="alert">
+            </div>
     </div>
     <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
@@ -32,13 +32,13 @@
 
 <div class="footer">
     <div class="shadow rounded">
-        <button class="btn btn-primary btn-lg text-uppercase" @onclick="@(SimulationService.SendMessageAsync)" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+        <button class="btn btn-primary btn-lg text-uppercase" disabled="@(!SimulationService.IsConnected)" @onclick="@(SimulationService.SendMessageAsync)" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
             læs information
         </button>
     </div>
 </div>
 
-<!-- Offcanvas -->
+ @*Offcanvas*@ 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">{{ AnimalName }}</h5>
@@ -54,8 +54,7 @@
 @code {
     [Inject] protected ILogger<VirtualSimulation> Logger { get; set; }
     [Inject] protected IJSRuntime JS { get; set; }
-    [Inject] protected NavigationManager NavigationManager { get; set; }
-    [Inject] protected SimulationService SimulationService { get; set; }
+    [Inject] protected ISimulationService SimulationService { get; set; }
 
     private IJSObjectReference? module;
     private string? result;
@@ -63,7 +62,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await SimulationService.ConnectToHubAsync(NavigationManager.ToAbsoluteUri("/virtual-simulation-hub"));
+        await SimulationService.ConnectAsync();
 
         StateHasChanged();
 
@@ -113,6 +112,7 @@
             try
             {
                 await module.DisposeAsync();
+                await SimulationService.DisposeAsync();
 
                 Logger.LogInformation($"Diposed {nameof(module)} from {typeof(IJSObjectReference)}");
             }
