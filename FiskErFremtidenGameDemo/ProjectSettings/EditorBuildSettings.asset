@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Test scene Jolle.unity
+    guid: 0dca0ea15f329ae4d9df8c3cd94de4d9
   m_configObjects: {}
