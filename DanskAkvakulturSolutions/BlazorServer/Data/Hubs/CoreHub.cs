@@ -15,11 +15,11 @@ namespace BlazorServer.Data.Hubs
     /// </summary>
     public abstract class CoreHub : IAsyncDisposable
     {
-        private readonly ILogger<object> _logger;
+        private readonly ILogger<CoreHub> _logger;
         private readonly ISimulationSettings _simulationSettings;
         private readonly HubConnection _hubConnection;
 
-        protected CoreHub(ILogger<object> logger, ISimulationSettings simulationSettings, NavigationManager nav)
+        protected CoreHub(ILogger<CoreHub> logger, ISimulationSettings simulationSettings, NavigationManager nav)
         {
             _logger = logger;
             _simulationSettings = simulationSettings;
