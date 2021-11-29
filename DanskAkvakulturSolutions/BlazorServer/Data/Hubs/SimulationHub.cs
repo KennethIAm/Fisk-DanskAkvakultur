@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,23 @@ namespace BlazorServer.Data.Hubs
 {
     public class SimulationHub : Hub
     {
-        public async Task Connect()
-        {
-            Console.WriteLine($"Client {Context.ConnectionId} started a virtual simulation.");
+        private readonly ILogger<SimulationHub> _logger;
 
-            await Clients.Caller.SendAsync("ReceiveMessage", "Welcome to the hub.");
+        public SimulationHub(ILogger<SimulationHub> logger)
+        {
+            _logger = logger;
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+
+        [Obsolete("This is a test method, not to be used by any clients.")]
+        public async Task Test()
+        {
+            _logger.LogInformation($"Client [{Context.ConnectionId}], started a virtual session.");
+            await Clients.Caller.SendAsync("ReceiveMessage", $"{Context.ConnectionId}", "Welcome to the hub.");
         }
 
         public async Task SendMessage(string user, string message)

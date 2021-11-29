@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlazorServer.Data.Hubs;
+using BlazorServer.Data.Services;
+using BlazorServer.Data.Settings;
+using BlazorServer.Data.Services.Interfaces;
 
 namespace BlazorServer
 {
@@ -30,6 +33,12 @@ namespace BlazorServer
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            /* Load Configuration Settings */
+            var settings = Configuration.GetSection("Simulation").Get<SimulationSettings>();
+
+            services.AddSingleton<ISimulationSettings>(settings);
+            services.AddTransient<ISimulationService, SimulationWebSocketService>();
 
             /* Add compression to response packets. */
             services.AddResponseCompression(opts =>
