@@ -44,7 +44,7 @@ h2 {
     position: absolute;
     display: flex;
     justify-content: center;
-    bottom: 10%;
+    margin-top: 20px;
     width: 100%;
 }
 
