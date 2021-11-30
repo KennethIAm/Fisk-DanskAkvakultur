@@ -80,7 +80,7 @@
                 objRef = DotNetObjectReference.Create(this);
                 await JS.InvokeVoidAsync("setDotNetReference", objRef);
 
-                module = await JS.InvokeAsync<IJSObjectReference>("import", "./assets/demo/demo.js");
+                module = await JS.InvokeAsync<IJSObjectReference>("import", "./assets/demo/game-engine.js");
             }
             catch (Exception)
             {
