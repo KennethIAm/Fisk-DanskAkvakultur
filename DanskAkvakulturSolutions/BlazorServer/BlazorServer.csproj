@@ -15,4 +15,11 @@
     <Folder Include="wwwroot\libs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\assets\demo\Build\Unity.data" />
+    <None Include="wwwroot\assets\demo\Build\Unity.framework.js" />
+    <None Include="wwwroot\assets\demo\Build\Unity.loader.js" />
+    <None Include="wwwroot\assets\demo\Build\Unity.wasm" />
+  </ItemGroup>
+
 </Project>

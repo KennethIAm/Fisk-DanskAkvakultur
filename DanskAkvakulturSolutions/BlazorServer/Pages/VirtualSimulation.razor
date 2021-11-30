@@ -57,6 +57,7 @@
     [Inject] protected ISimulationService SimulationService { get; set; }
 
     private IJSObjectReference? module;
+    private DotNetObjectReference<VirtualSimulation>? objRef;
     private string? result;
     private string exceptionMessage;
 
@@ -64,7 +65,8 @@
     {
         await SimulationService.ConnectAsync();
 
-        StateHasChanged();
+        base.ShouldRender();
+        base.StateHasChanged();
 
         await StartEngine();
     }
@@ -75,6 +77,9 @@
         {
             try
             {
+                objRef = DotNetObjectReference.Create(this);
+                await JS.InvokeVoidAsync("setDotNetReference", objRef);
+
                 module = await JS.InvokeAsync<IJSObjectReference>("import", "./assets/demo/demo.js");
             }
             catch (Exception)
@@ -82,6 +87,16 @@
                 exceptionMessage = "Fejlede indlæsning af Core Engine.";
             }
         }
+    }
+
+    [JSInvokable("LeaderboardData")]
+    public Task<bool> ReceiveLeaderboardAsync(float data)
+    {
+        if (data is 0) return Task.FromResult(false);
+
+        Logger.LogInformation($"Received Leaderboad information : {data}");
+
+        return Task.FromResult(true);
     }
 
     private async Task StartEngine()
@@ -93,12 +108,12 @@
     {
         try
         {
-            return module is not null
-                ? await module.InvokeAsync<string>("loadUnityEngine")
-                : null;
+            return await module.InvokeAsync<string>("loadUnityEngine");
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Logger.LogError(ex, ex.Message);
+
             exceptionMessage = "Fejlede indlæsning af Virtuel Simulation.";
 
             return null;

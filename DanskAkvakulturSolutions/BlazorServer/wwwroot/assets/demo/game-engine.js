@@ -26,7 +26,11 @@
     // config.matchWebGLToCanvasSize = false;
 
     try {
+        console.warn("Starting game engine . . .");
+
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            console.warn("User is on mobile.");
+
             container.className = "unity-mobile";
             // Avoid draining fillrate performance on mobile devices,
             // and default/override low DPI mode on mobile browsers.
@@ -41,9 +45,13 @@
         }
         loadingBar.style.display = "block";
 
+        console.warn("Creating scripts...");
+
         var script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {
+            console.warn("Loading scripts . . .");
+
             createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
@@ -52,7 +60,7 @@
                     unityInstance.SetFullscreen(1);
                 };
             }).catch((message) => {
-                alert(message);
+                console.error(message);
             });
         };
         document.body.appendChild(script);
