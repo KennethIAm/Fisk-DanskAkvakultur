@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31727.386
@@ -6,6 +5,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prototypes", "Prototypes", "{B8147242-C3BE-476E-8203-46C8150B2AB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{F9AB9782-ADFC-4F02-9C32-442204773B33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServer", "BlazorServer\BlazorServer.csproj", "{6B0849D5-2641-471E-9CBE-A95A0B207011}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +17,9 @@ Global
 		{F9AB9782-ADFC-4F02-9C32-442204773B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9AB9782-ADFC-4F02-9C32-442204773B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9AB9782-ADFC-4F02-9C32-442204773B33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0849D5-2641-471E-9CBE-A95A0B207011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0849D5-2641-471E-9CBE-A95A0B207011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0849D5-2641-471E-9CBE-A95A0B207011}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
