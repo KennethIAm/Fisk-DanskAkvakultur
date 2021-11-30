@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+h1 {
+    font-size: 4rem !important;
+}
+
+h2 {
+    font-size: 0.9rem !important;
+}
+
+.fs-normal {
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 400 !important;
+}
+
+.fs-semibold {
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+.fs-bold {
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0590C7 !important;
+    border-color: #0590C7 !important;
+}
+
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+}
+
+.footer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 10%;
+    width: 100%;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+/* Transitions */
+button {
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+}
+
+    button:after {
+        -webkit-transition: all 500ms;
+        transition: all 500ms;
+    }
+
+    button:hover {
+        background-color: #2FB457 !important;
+        border-color: #2FB457 !important;
+        -webkit-transition: all 500ms;
+        transition: all 500ms;
+    }
+
+    button:focus {
+        background-color: #2FB457 !important;
+        border-color: #2FB457 !important;
+        box-shadow: 0 0 0 0.25rem rgb(47 180 87 / 50%) !important;
+    }
+
+    button:hover:after {
+        opacity: 1;
+        color: #fff;
+        content: " ➜ ";
+        -webkit-transition: all 1s;
+        transition: all 1s;
+    }
+
+/* Scrollbar */
+
+::-webkit-scrollbar, ::-webkit-scrollbar:horizontal {
+    width: .5rem !important;
+    height: .25rem !important;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:horizontal {
+    background-color: #161616e6 !important;
+    border-radius: 4px !important;
+}
