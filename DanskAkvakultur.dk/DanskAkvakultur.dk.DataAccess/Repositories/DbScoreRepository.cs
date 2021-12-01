@@ -24,6 +24,18 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories
 
         public async Task<Guid> CreateAsync(IScore obj)
         {
+            if (obj is null)
+                throw new ArgumentNullException(nameof(obj), "Couldn't create score, due to score being null.");
+
+            if (obj.ClientId.Equals(Guid.Empty))
+                throw new ArgumentException("Couldn't create score, due to client id being empty.", nameof(obj));
+
+            if (obj.Score.Equals(decimal.Zero) || obj.Score < decimal.Zero)
+                throw new ArgumentException("Coudln't create score, due to score being zero or negative.", nameof(obj));
+
+            if (obj.ScoreRegistered.Equals(default))
+                throw new ArgumentException("Couldn't create score, registration datetime is default.", nameof(obj));
+
             Guid entityId;
             using (var conn = _dbManager.GetSqlConnection(DbCredentialType.CreateUser))
             {
