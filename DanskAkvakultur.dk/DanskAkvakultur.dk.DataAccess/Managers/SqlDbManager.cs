@@ -18,19 +18,16 @@ namespace DanskAkvakultur.dk.DataAccess.Managers
         /// <inheritdoc/>
         public SqlConnection GetSqlConnection(DbCredentialType connectionType) => connectionType switch
         {
-            DbCredentialType.BasicUser => GetSqlConnectionBasicReader(),
-            DbCredentialType.ComplexUser => GetSqlConnectionComplexSelect(),
-            DbCredentialType.CreateUser => GetSqlConnectionCreatePermission(),
-            DbCredentialType.UpdateUser => GetSqlConnectionUpdatePermission(),
-            DbCredentialType.DeleteUser => GetSqlConnectionDeletePermission(),
+            DbCredentialType.BasicUser => GetTestSqlConnection(),
+            DbCredentialType.ComplexUser => GetTestSqlConnection(),
+            DbCredentialType.CreateUser => GetTestSqlConnection(),
+            DbCredentialType.UpdateUser => GetTestSqlConnection(),
+            DbCredentialType.DeleteUser => GetTestSqlConnection(),
             _ => throw new ArgumentException("No Connection Type found with used type.", nameof(connectionType))
         };
 
-        /// <summary>
-        /// For testing purposes only.
-        /// </summary>
-        /// <returns></returns>
-        private SqlConnection GetTestSqlConnection() => _factory.CreateConnection("sa", "1234");
+        [Obsolete("When this method is used, it will show a warning. This method is only used for test purposes.")]
+        private SqlConnection GetTestSqlConnection() => _factory.CreateConnection("sa", "Kode1234!");
 
         private SqlConnection GetSqlConnectionBasicReader() => _factory.CreateConnection("BasicUserReader", "Kode1234!");
 
