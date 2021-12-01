@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DataClassLibrary.Core.Endpoints
@@ -22,9 +23,20 @@ namespace DataClassLibrary.Core.Endpoints
             return base.OnConnectedAsync();
         }
 
+        public async Task UpdateAnimalInformation(string name)
+        {
+            
+        }
+
         public async Task UpdateLeaderboard(float score)
         {
-            await Clients.Caller.SendAsync("ReceiveMessage", Context.ConnectionId, $"Updated leaderboard with score {score}.");
+            await Clients.Caller.SendAsync("ReceiveLeaderboardData", new List<object>
+            {
+                Context.ConnectionId,
+                score,
+                37.21,
+                457.38
+            });
         }
 
         public async Task SendMessage(string user, string message)

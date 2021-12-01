@@ -8,5 +8,7 @@ namespace DataClassLibrary.Core.Settings
         public string RelativeUri { get; set; }
 
         public Uri AbsoluteUri { get; set; }
+
+        public string GameEnginePath { get; set; }
     }
 }

@@ -1,0 +1,14 @@
+﻿<button class="btn btn-primary btn-lg text-uppercase" type="button" @onclick="@OnClick_NavigateToUrl">@(BtnText)</button>
+
+@code {
+    [Parameter] public string BtnText { get; set; }
+    [Parameter] public string Url { get; set; }
+    [Parameter] public bool ForeceLoad { get; set; } = false;
+
+    [Inject] protected NavigationManager Nav { get; set; }
+
+    private void OnClick_NavigateToUrl()
+    {
+        Nav.NavigateTo(Url, ForeceLoad);
+    }
+}

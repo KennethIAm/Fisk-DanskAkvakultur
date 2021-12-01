@@ -1,10 +1,14 @@
-﻿using System;
+﻿using DataClassLibrary.Core.Events;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DataClassLibrary.Simulation.Services.Interfaces
 {
     public interface ISimulationService : IAsyncDisposable
     {
+        public event EventHandler<LeaderboardUpdatedEventArgs> LeaderboardUpdated;
+
         ///// <summary>
         ///// Returns the state of the connection. True if connected, otherwise false.
         ///// </summary>

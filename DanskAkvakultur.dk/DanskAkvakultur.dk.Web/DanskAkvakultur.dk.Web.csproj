@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<UserSecretsId>79df6715-fc77-4ac6-b0c7-a46f855447ce</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="wwwroot\libs\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="wwwroot\libs\engine\1.0.0\Build\Unity.data" />
+		<None Include="wwwroot\libs\engine\1.0.0\Build\Unity.framework.js" />
+		<None Include="wwwroot\libs\engine\1.0.0\Build\Unity.loader.js" />
+		<None Include="wwwroot\libs\engine\1.0.0\Build\Unity.wasm" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DanskAkvakultur.dk.DataAccess\DanskAkvakultur.dk.DataAccess.csproj" />
+	</ItemGroup>
+
+</Project>
