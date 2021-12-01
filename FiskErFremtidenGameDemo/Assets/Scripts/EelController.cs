@@ -5,6 +5,7 @@ using UnityEngine;
 public class EelController : MonoBehaviour
 {
     bool isHungry = true;
+    bool isAgeing = false;
     Eel _eel;
 
 
@@ -19,23 +20,28 @@ public class EelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while (isHungry)
+        if (isHungry)
         {
-            print("Is hungry");
             isHungry = false;
             StartCoroutine(DecreseHunger(2));
         }
+
         if (!_eel.IsAlive)
         {
             Destroy(gameObject);
         }
+
+        if (!isAgeing)
+        {
+            isAgeing = true;
+            StartCoroutine(StartAgeing(5));
+        }
     }
 
-    IEnumerator DecreseHunger(float time)
+    IEnumerator DecreseHunger(float timeS)
     {
-        print("Decrese hunger");
-        yield return new WaitForSeconds(time);
-        _eel.Hunger(5);
+        yield return new WaitForSeconds(timeS);
+        _eel.Hunger(2);
         if (_eel.HungerValue <= 0)
         {
             _eel.Die();
@@ -43,9 +49,16 @@ public class EelController : MonoBehaviour
         isHungry = true;
     }
 
-    public void feedEel()
+    IEnumerator StartAgeing(float timeS)
     {
-        _eel.Eat(20);
+        yield return new WaitForSeconds(timeS);
+        _eel.AgeEel();
+        isAgeing = false;
+    }
+
+    public void GetFood(Food food)
+    {
+        _eel.Eat(food);
     }
 
 
