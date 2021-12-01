@@ -8,13 +8,16 @@ public class Eel : MonoBehaviour
     private bool _isAlive;
     private int _age;
     private string _wantedFood;
+    private bool _isBreedable;
+    private bool _isExtractable;
 
-    public void Init(float hungerValue = 50f, bool isalive = true, int age = 1)
+    public void Init(float hungerValue = 50f, bool isalive = true, int age = 1, string wantedFood = "wet", bool isBreedable = false)
     {
         _hungerValue = hungerValue;
         _isAlive = isalive;
         _age = age;
-        _wantedFood = "wet";
+        _wantedFood = wantedFood;
+        _isBreedable = isBreedable;
     }
 
     public float HungerValue
@@ -32,6 +35,16 @@ public class Eel : MonoBehaviour
     public bool IsAlive
     {
         get { return _isAlive; }
+    }
+
+    public bool IsExtractable
+    {
+        get { return _isExtractable; }
+    }
+
+    public bool IsBreedable
+    {
+        get { return _isBreedable; }
     }
 
     public int Age
@@ -67,9 +80,19 @@ public class Eel : MonoBehaviour
     public void AgeEel()
     {
         _age += 1;
+
         if (Age <= 5) { WantedFood = "wet"; }
         else if (Age > 5 && Age < 10) { WantedFood = "dry"; }
         else { WantedFood = "beef"; }
+
+        if (Age > 5) _isBreedable = true;
+
+        if (Age > 5) _isExtractable = true;
+    }
+
+    public void Breed()
+    {
+
     }
 
 }
