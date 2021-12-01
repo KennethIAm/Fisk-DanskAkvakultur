@@ -5,9 +5,9 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField]
-    float movementSpeed = 10f;
+    float movementSpeed = 5f;
     [SerializeField]
-    float rotationSpeed = 100f;
+    float rotationSpeed = 50f;
 
     bool isWandering = false;
     bool isrotatingLeft = false;
