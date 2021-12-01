@@ -48,6 +48,14 @@ h2 {
     width: 100%;
 }
 
+.footer-simulation {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
