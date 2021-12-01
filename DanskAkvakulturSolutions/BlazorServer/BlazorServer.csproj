@@ -22,4 +22,8 @@
     <None Include="wwwroot\assets\demo\Build\Unity.wasm" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataClassLibrary\DataClassLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

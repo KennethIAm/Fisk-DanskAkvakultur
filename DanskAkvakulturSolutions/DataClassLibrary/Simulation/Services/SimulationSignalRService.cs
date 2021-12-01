@@ -1,6 +1,7 @@
 ﻿using DataClassLibrary.Core;
 using DataClassLibrary.Core.Settings.Interfaces;
 using DataClassLibrary.Simulation.Services.Interfaces;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
@@ -23,9 +24,19 @@ namespace DataClassLibrary.Simulation.Services
             await base.StartConnectionAsync();
         }
 
-        public async Task SendMessageAsync()
+        public async Task<bool> UpdateLeaderboardAsync(decimal value)
         {
-            await base.SendAsync();
+            try
+            {
+                await HubConnection.SendAsync("UpdateLeaderboard", value);
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+
+                return false;
+            }
         }
     }
 }

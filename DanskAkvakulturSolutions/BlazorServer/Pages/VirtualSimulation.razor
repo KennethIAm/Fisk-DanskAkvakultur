@@ -1,4 +1,5 @@
 ﻿@page "/virtual-simulation"
+@using DataClassLibrary.Simulation.Services.Interfaces
 @layout GameLayout
 @implements IAsyncDisposable
 
@@ -21,7 +22,7 @@
     <div id="unity-mobile-warning">
         WebGL builds er ikke supporteret for mobile enheder.
         <div class="alert alert-warning" role="alert">
-            </div>
+        </div>
     </div>
     <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
@@ -32,13 +33,13 @@
 
 <div class="footer">
     <div class="shadow rounded">
-        <button class="btn btn-primary btn-lg text-uppercase" disabled="@(!SimulationService.IsConnected)" @onclick="@(SimulationService.SendMessageAsync)" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+        <button class="btn btn-primary btn-lg text-uppercase" disabled="@(!SimulationService.IsConnected)" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
             læs information
         </button>
     </div>
 </div>
 
- @*Offcanvas*@ 
+@*Offcanvas*@
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">{{ AnimalName }}</h5>
@@ -90,13 +91,13 @@
     }
 
     [JSInvokable("LeaderboardData")]
-    public Task<bool> ReceiveLeaderboardAsync(float data)
+    public async Task<bool> ReceiveLeaderboardAsync(float data)
     {
-        if (data is 0) return Task.FromResult(false);
+        if (data is 0) return false;
 
         Logger.LogInformation($"Received Leaderboad information : {data}");
 
-        return Task.FromResult(true);
+        return await SimulationService.UpdateLeaderboardAsync((decimal)data);
     }
 
     private async Task StartEngine()

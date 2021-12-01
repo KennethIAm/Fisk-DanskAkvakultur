@@ -19,6 +19,12 @@ namespace DataClassLibrary.Core
                 .Build();
         }
 
+        public HubConnection HubConnection => _hubConnection;
+
+        /// <summary>
+        /// Starts a default connection with the hub.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous start.</returns>
         protected virtual async Task StartConnectionAsync()
         {
             _hubConnection?.On<string, string>("ReceiveMessage", (user, message) =>

@@ -11,10 +11,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlazorServer.Data.Hubs;
-using BlazorServer.Data.Services;
-using BlazorServer.Data.Settings;
-using BlazorServer.Data.Services.Interfaces;
+using DataClassLibrary.Core.Settings;
+using DataClassLibrary.Core.Settings.Interfaces;
+using DataClassLibrary.Simulation.Services.Interfaces;
+using DataClassLibrary.Simulation.Services;
+using DataClassLibrary.Core.Endpoints;
+using DataAccessLibrary.Leaderboard.Repository;
+using DataAccessLibrary.Managers;
+using DataAccessLibrary;
+using DataAccessLibrary.Settings;
 
 namespace BlazorServer
 {
@@ -35,10 +40,23 @@ namespace BlazorServer
             services.AddServerSideBlazor();
 
             /* Load Configuration Settings */
-            var settings = Configuration.GetSection("Simulation").Get<SimulationSettings>();
+            var simSettings = Configuration.GetSection("Simulation").Get<SimulationServiceSettings>();
+            var connSettings = Configuration.GetSection("DbConfig").Get<DbConnectionSettings>();
 
-            services.AddSingleton<ISimulationSettings>(settings);
-            services.AddTransient<ISimulationService, SimulationWebSocketService>();
+            services.AddScoped<ISimulationSettings>(s =>
+            {
+                var navManager = s.GetService<NavigationManager>();
+                simSettings.AbsoluteUri = navManager.ToAbsoluteUri(simSettings.RelativeUri);
+                return simSettings;
+            });
+            services.AddSingleton<IConnectionSettings>(connSettings);
+
+            services.AddTransient<ISimulationService, SimulationSignalRService>();
+
+            /* Data Access Library Configuration */
+            services.AddSingleton<IDbFactory, SqlDbConnectionFactory>();
+            services.AddScoped<IDbManager, SqlDbManager>();
+            services.AddScoped<ILeaderboardRepository, DbLeaderboardRepository>();
 
             /* Add compression to response packets. */
             services.AddResponseCompression(opts =>
@@ -85,7 +103,7 @@ namespace BlazorServer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
-                endpoints.MapHub<SimulationHub>("/virtual-simulation-hub");
+                endpoints.MapHub<VirtualSimulationHub>("/virtual-simulation-hub");
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
