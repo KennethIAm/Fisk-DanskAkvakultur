@@ -6,7 +6,7 @@ public class EelController : MonoBehaviour
 {
     bool isHungry = true;
     bool isAgeing = false;
-    Eel _eel;
+    public Eel _eel;
 
 
     // Start is called before the first frame update
@@ -58,6 +58,7 @@ public class EelController : MonoBehaviour
 
     public void GetFood(Food food)
     {
+        Debug.Log("Getting food");
         _eel.Eat(food);
     }
 

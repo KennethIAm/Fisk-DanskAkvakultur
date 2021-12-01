@@ -10,15 +10,22 @@ public class Food : MonoBehaviour
     [SerializeField]
     private float _satisfieValue;
 
+    public Food(string name, float satisfieValue)
+    {
+        _name = name;
+        _satisfieValue = satisfieValue;
+    }
 
     public string Name
     {
         get { return _name; }
+        set { _name = value; }
     }
 
     public float SatisfieValue
     {
         get { return _satisfieValue; }
+        set { _satisfieValue = value; }
     }
 
 

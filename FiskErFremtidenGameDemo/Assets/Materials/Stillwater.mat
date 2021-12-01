@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StyleizedWater
+  m_Name: Stillwater
   m_Shader: {fileID: -6465566751694194690, guid: f0e7bbb42ab9bfa468de70b1f2c3c49c, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -89,9 +89,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1388b069d92b47519cec2033309cb601: 1
+    - Vector1_1388b069d92b47519cec2033309cb601: 0.1
     - Vector1_30b0a692f1cf44a38d9f36fb469d5721: 1
-    - Vector1_5bf5ab9804b8461ca0b33a8a2e941fee: 2
+    - Vector1_5bf5ab9804b8461ca0b33a8a2e941fee: 1
     - Vector1_5cbee62723584959890bc7977cbcebbf: 11
     - Vector1_6b870785b6c4459c992c7194ea5197a5: 0.1
     - Vector1_7911386f63bd4d7685a2ad8fac1d5647: 20

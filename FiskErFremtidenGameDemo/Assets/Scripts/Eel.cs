@@ -14,6 +14,7 @@ public class Eel : MonoBehaviour
         _hungerValue = hungerValue;
         _isAlive = isalive;
         _age = age;
+        _wantedFood = "wet";
     }
 
     public float HungerValue
