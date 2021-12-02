@@ -5,22 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    SimulationManager simManager;
 
     public void SelectAnimal(string animal)
     {
+        simManager.ChosenAnimal = animal;
+    }
 
+    public void SelectFarmingMethod(string farmMethod)
+    {
+        simManager.FarmingMethod = farmMethod;
     }
 
     public void ChangeMenu(GameObject nextUI)
@@ -34,6 +29,7 @@ public class MenuManager : MonoBehaviour
 
     public void Startgame()
     {
+        print("Data to send to server and generate sim of: Animal - " + simManager.ChosenAnimal + " opdrættelsesmetode - " + simManager.FarmingMethod);
         SceneManager.LoadScene("Test scene Jolle");
     }
 }

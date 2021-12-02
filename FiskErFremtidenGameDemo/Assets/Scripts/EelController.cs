@@ -58,7 +58,6 @@ public class EelController : MonoBehaviour
 
     public void GetFood(Food food)
     {
-        Debug.Log("Getting food");
         _eel.Eat(food);
     }
 

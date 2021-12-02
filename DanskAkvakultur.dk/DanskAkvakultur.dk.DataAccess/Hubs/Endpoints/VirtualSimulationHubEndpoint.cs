@@ -1,4 +1,5 @@
-﻿using DanskAkvakultur.dk.Shared.Models.Score;
+﻿using DanskAkvakultur.dk.DataAccess.Repositories.Abstractions;
+using DanskAkvakultur.dk.Shared.Models.Score;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,17 +11,24 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
     public class VirtualSimulationHubEndpoint : Hub
     {
         private readonly ILogger<VirtualSimulationHubEndpoint> _logger;
+        private readonly IScoreRepository _scoreRepository;
 
-        public VirtualSimulationHubEndpoint(ILogger<VirtualSimulationHubEndpoint> logger)
+        public VirtualSimulationHubEndpoint(ILogger<VirtualSimulationHubEndpoint> logger, IScoreRepository scoreRepository)
         {
             _logger = logger;
+            _scoreRepository = scoreRepository;
         }
 
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
             _logger.LogInformation($"Client {Context.ConnectionId} now online!");
 
-            return base.OnConnectedAsync();
+            var leaderboard = await _scoreRepository.GetAllAsync();
+            await Clients.Caller.SendAsync("ReceiveLeaderboardData", leaderboard.ToArray());
+
+            _logger.LogInformation($"Updating client {Context.ConnectionId} with leaderboard.");
+
+            await base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
@@ -37,42 +45,34 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
             return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task UpdateAnimalInformation(string name)
+        public async Task GetAnimalInformation(string name)
         {
+            _logger.LogInformation($"Getting information from animal {name}");
 
+            string moqInformation = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+            await Clients.Caller.SendAsync("ReceiveAnimalInformationData", name, moqInformation);
         }
 
         public async Task UpdateLeaderboard(decimal score)
         {
-            await Clients.Caller.SendAsync("ReceiveLeaderboardData", new List<object>
+            var obj = new ScoreModel
             {
-                Context.ConnectionId,
-                score,
-                37.21,
-                457.38
-            });
+                ClientId = Guid.NewGuid(),
+                Score = score,
+                ScoreRegistered = DateTime.Now
+            };
 
-            //await Clients.Caller.SendAsync("ReceiveLeaderboardData", new List<IScore>
-            //{
-            //    new ScoreModel
-            //    {
-            //        ClientId = Guid.NewGuid(),
-            //        Score = score,
-            //        ScoreRegistered = DateTime.Now
-            //    },
-            //    new ScoreModel
-            //    {
-            //        ClientId = Guid.NewGuid(),
-            //        Score = 37.21M,
-            //        ScoreRegistered = DateTime.Now
-            //    },
-            //    new ScoreModel
-            //    {
-            //        ClientId = Guid.NewGuid(),
-            //        Score =  457.38M,
-            //        ScoreRegistered = DateTime.Now
-            //    }
-            //});
+            var result = await _scoreRepository.CreateAsync(obj);
+
+            if (!result.Equals(Guid.Empty))
+            {
+                _logger.LogInformation($"Leaderboard has been updated with score {score}");
+
+                var leaderboard = await _scoreRepository.GetAllAsync();
+
+                await Clients.Caller.SendAsync("ReceiveLeaderboardData", leaderboard.ToArray());
+            }
         }
 
         public async Task SendMessage(string user, string message)

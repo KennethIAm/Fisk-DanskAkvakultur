@@ -5,49 +5,87 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField]
     Color selectedColor;
     [SerializeField]
     Color unselectedColor;
+    [SerializeField]
+    GameObject CM;
+    [SerializeField]
+    Text pointText;
 
-    EelController[] EelsInScene;
-    Food[] foodButtons;
 
-    Food currentFood;
+    EelController[] _EelsInScene;
+    Food[] _foodButtons;
+    Food _currentFood;
+
+    private float _points;
+    public float Points
+    {
+        get { return _points; }
+        set { _points = value; }
+    }
 
     void Start()
     {
-        foodButtons = FindObjectsOfType<Food>();
+        _foodButtons = FindObjectsOfType<Food>();
+        FindEelsInScene();
+    }
+
+    void Update()
+    {
+        pointText.text = Points.ToString();
+
+        FindEelsInScene();
+
+        StartCoroutine(ExtractEels(5));
+
+        if (Input.GetMouseButton(1))
+        {
+            CM.SetActive(true);
+        }
+        else CM.SetActive(false);
     }
 
     public void FeedEel()
     {
-        FindEelsInScene();
-
-        foreach (EelController eel in EelsInScene)
+        foreach (EelController eel in _EelsInScene)
             if (eel.isActiveAndEnabled)
             {
-                eel.GetFood(currentFood);
+                eel.GetFood(_currentFood);
             }
     }
 
     private void FindEelsInScene()
     {
-        EelsInScene = FindObjectsOfType<EelController>();
+        _EelsInScene = FindObjectsOfType<EelController>();
     }
 
     public void SelectFood(Food obj)
     {
-        currentFood = obj;
+        _currentFood = obj;
 
-        foreach (Food button in foodButtons)
+        foreach (Food button in _foodButtons)
             if (button.isActiveAndEnabled)
             {
                 button.gameObject.GetComponent<Image>().color = unselectedColor;
             }
 
         obj.gameObject.GetComponent<Image>().color = selectedColor;
+    }
+
+    public IEnumerator ExtractEels(float timeS)
+    {
+        foreach (EelController eel in _EelsInScene)
+        {
+            if (eel._eel.IsExtractable)
+            {
+                Destroy(eel.gameObject);
+                Points += 1;
+            }
+        }
+
+        yield return new WaitForSeconds(timeS);
     }
 
 }

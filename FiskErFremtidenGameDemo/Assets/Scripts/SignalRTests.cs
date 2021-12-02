@@ -1,22 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SignalRTests : MonoBehaviour
 {
+    [SerializeField]
+    SimulationManager simMan;
+
+    [SerializeField]
+    PlayerController playerController;
+    
     [DllImport("__Internal")]
-    private static extern void Hello();
+    private static extern void SendLeaderboard(float score);
 
-    // Start is called before the first frame update
-    void Start()
+    [DllImport("__Internal")]
+    private static extern void SendPlayerChoice(string data);
+
+    public void SendScore()
     {
-        Hello();
+        print(playerController.Points);
+        SendLeaderboard(playerController.Points);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SendAnimalChoice()
     {
-        
+        print("#################################");
+        SendPlayerChoice("Eel");
+        print("#################################");
     }
+
 }

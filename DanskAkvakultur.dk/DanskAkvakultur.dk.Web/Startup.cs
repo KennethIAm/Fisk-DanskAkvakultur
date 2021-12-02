@@ -47,7 +47,7 @@ namespace DanskAkvakultur.dk.Web
             });
             services.AddSingleton<IConnectionSettings>(connSettings);
 
-            services.AddTransient<ISimulationService, SimulationSignalRClientService>();
+            services.AddTransient<ISimulationService, SimulationClientService>();
 
             /* Data Access Library Configuration */
             services.AddSingleton<IDbFactory, SqlDbConnectionFactory>();
