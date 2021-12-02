@@ -8,12 +8,12 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories.ORM
     public class LeaderboardDataView
     {
         /// <inheritdoc />
-        public Guid ClientId { get; set; }
+        public Guid Client_ID { get; set; }
 
         /// <inheritdoc />
         public decimal Score { get; set; }
 
         /// <inheritdoc />
-        public DateTime ScoreRegistered { get; set; }
+        public DateTime SubmitDate { get; set; }
     }
 }

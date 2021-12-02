@@ -31,7 +31,7 @@
     <div class="footer-simulation">
         <div>
             <div class="shadow rounded">
-                <button class="btn btn-primary btn-lg text-uppercase" style="width:250px;" disabled="@(!SimulationService.IsConnected)" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+                <button class="btn btn-primary btn-lg text-uppercase" style="width:250px;" disabled="@(!SimulationService.IsConnected || information is null)" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
                     læs information
                 </button>
             </div>
@@ -48,13 +48,21 @@
 
 @*Offcanvas*@
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">@(animalName)</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        @(animalData)
-    </div>
+    @if (information is not null)
+    {
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">@(information.Animal.Name)</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>
+                @(information.BriefDescription)
+            </p>
+            <p>
+                @(information.HabitatDescription)
+            </p>
+        </div>
+    }
 </div>
 
 @*Offcanvas*@
@@ -66,6 +74,20 @@
     <div class="offcanvas-body">
         @if (tempData is not null)
         {
+            <style>
+                tr:nth-child(1) .fa-star {
+                    color: #D6AF36 !important;
+                }
+
+                tr:nth-child(2) .fa-star {
+                    color: #D7D7D7 !important;
+                }
+
+                tr:nth-child(3) .fa-star {
+                    color: #824A02 !important;
+                }
+            </style>
+
             <table class="table table-sm table-borderless table-responsive caption-top">
                 <caption>
                     <p></p>Senest opdateret:
@@ -73,16 +95,27 @@
                 </caption>
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Score</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var data in tempData.OrderByDescending(x => x.Score).Take(50))
                     {
                         <tr>
-                            <th>@data.ClientId</th>
                             <td>@data.Score</td>
+                            @switch (tempData.IndexOf(data))
+                            {
+                                case 0:
+                                    <th><i class="fas fa-star"></i></th>
+                                    break;
+                                case 1:
+                                    <th><i class="fas fa-star"></i></th>
+                                    break;
+                                case 2:
+                                    <th><i class="fas fa-star"></i></th>
+                                    break;
+                            }
                         </tr>
                     }
                 </tbody>
@@ -99,8 +132,7 @@
 
     private List<IScore> tempData;
     private DateTime lastUpdated;
-    private string animalName;
-    private string animalData;
+    private AnimalInformation information;
     private IJSObjectReference? module;
     private DotNetObjectReference<VirtualSimulation>? objRef;
     private string canvasCssStyle;
@@ -153,8 +185,7 @@
     {
         Logger.LogInformation($"Received animal data from {sender}.");
 
-        animalName = e?.AnimalName;
-        animalData = e?.Information.ToString();
+        information = e?.Information;
 
         StateHasChanged();
     }

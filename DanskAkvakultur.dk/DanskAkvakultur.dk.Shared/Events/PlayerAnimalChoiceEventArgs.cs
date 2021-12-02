@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DanskAkvakultur.dk.Shared.Models.Information;
+using System;
 
 namespace DanskAkvakultur.dk.Shared.Events
 {
@@ -7,7 +8,6 @@ namespace DanskAkvakultur.dk.Shared.Events
     /// </summary>
     public class PlayerAnimalChoiceEventArgs : EventArgs
     {
-        public string AnimalName { get; set; }
-        public object Information { get; set; }
+        public AnimalInformation Information { get; set; }
     }
 }

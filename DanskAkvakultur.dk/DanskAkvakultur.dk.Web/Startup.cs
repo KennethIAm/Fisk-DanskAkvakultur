@@ -51,8 +51,9 @@ namespace DanskAkvakultur.dk.Web
 
             /* Data Access Library Configuration */
             services.AddSingleton<IDbFactory, SqlDbConnectionFactory>();
-            services.AddScoped<IDbManager, SqlDbManager>();
+            services.AddSingleton<IDbManager, SqlDbManager>();
             services.AddScoped<IScoreRepository, DbScoreRepository>();
+            services.AddScoped<IAnimalInformationRepository, DbAnimalInformationRepository>();
 
             /* Add compression to response packets. */
             services.AddResponseCompression(opts =>
