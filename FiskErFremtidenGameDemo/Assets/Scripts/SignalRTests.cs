@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SignalRTests : MonoBehaviour
 {
+    [SerializeField]
+    Text score;
+
     [DllImport("__Internal")]
-    private static extern void Hello();
+    private static extern void Hello(Text score);
 
-    // Start is called before the first frame update
-    void Start()
+    public void SendScore(Text score)
     {
-        Hello();
+        Hello(score);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
