@@ -40,8 +40,8 @@
                 mobileWarning.style.display = "none";
             }, 5000);
         } else {
-            canvas.style.width = "960px";
-            canvas.style.height = "600px";
+            //canvas.style.width = "960px";
+            //canvas.style.height = "600px";
         }
         loadingBar.style.display = "block";
 

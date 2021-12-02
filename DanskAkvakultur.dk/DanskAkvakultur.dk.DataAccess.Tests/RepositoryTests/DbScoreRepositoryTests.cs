@@ -2,7 +2,6 @@
 using DanskAkvakultur.dk.Shared.Models.Score;
 using NUnit.Framework;
 using System;
-using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
 {
