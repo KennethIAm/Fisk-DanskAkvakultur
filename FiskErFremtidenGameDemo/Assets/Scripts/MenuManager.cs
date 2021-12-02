@@ -7,8 +7,6 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField]
     SimulationManager simManager;
-    [SerializeField]
-    Scene sceneToLoad;
 
     public void SelectAnimal(string animal)
     {
