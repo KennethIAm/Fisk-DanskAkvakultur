@@ -413,6 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d125bab216c5847bd5bdf0083ef81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 4620904832741911235}
+  _eel: {fileID: 0}
 --- !u!114 &1210501636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,8 +427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50ab8e6801617a4a83827907eb36e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 30
-  rotationSpeed: 100
+  movementSpeed: 5
+  rotationSpeed: 30
 --- !u!54 &1210501637
 Rigidbody:
   m_ObjectHideFlags: 0
