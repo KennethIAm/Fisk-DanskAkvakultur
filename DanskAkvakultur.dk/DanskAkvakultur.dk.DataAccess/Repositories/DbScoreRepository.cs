@@ -42,9 +42,9 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories
                 string proc = "[CreateLeaderboardScore]";
                 var values = new
                 {
-                    @clientId = obj.ClientId,
+                    @client_ID = obj.ClientId,
                     @score = obj.Score,
-                    @registrationTimestamp = obj.ScoreRegistered
+                    @submitDate = obj.ScoreRegistered
                 };
 
                 entityId = await conn.ExecuteScalarAsync<Guid>(proc, values, commandType: CommandType.StoredProcedure);
@@ -69,9 +69,9 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories
                     {
                         var score = new ScoreModel
                         {
-                            ClientId = result.ClientId,
+                            ClientId = result.Client_ID,
                             Score = result.Score,
-                            ScoreRegistered = result.ScoreRegistered
+                            ScoreRegistered = result.SubmitDate
                         };
 
                         leaderboard.Add(score);

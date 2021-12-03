@@ -12,11 +12,13 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
     {
         private readonly ILogger<VirtualSimulationHubEndpoint> _logger;
         private readonly IScoreRepository _scoreRepository;
+        private readonly IAnimalInformationRepository _informationRepository;
 
-        public VirtualSimulationHubEndpoint(ILogger<VirtualSimulationHubEndpoint> logger, IScoreRepository scoreRepository)
+        public VirtualSimulationHubEndpoint(ILogger<VirtualSimulationHubEndpoint> logger, IScoreRepository scoreRepository, IAnimalInformationRepository informationRepository)
         {
             _logger = logger;
             _scoreRepository = scoreRepository;
+            _informationRepository = informationRepository;
         }
 
         public override async Task OnConnectedAsync()
@@ -49,9 +51,12 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
         {
             _logger.LogInformation($"Getting information from animal {name}");
 
-            string moqInformation = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+            var information = await _informationRepository.GetByNameAsync(name);
 
-            await Clients.Caller.SendAsync("ReceiveAnimalInformationData", name, moqInformation);
+            if (information is not null)
+            {
+                await Clients.Caller.SendAsync("ReceiveAnimalInformationData", information);
+            }
         }
 
         public async Task UpdateLeaderboard(decimal score)

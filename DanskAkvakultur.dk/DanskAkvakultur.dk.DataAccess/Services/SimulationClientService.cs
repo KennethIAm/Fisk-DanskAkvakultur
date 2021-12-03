@@ -2,11 +2,11 @@
 using DanskAkvakultur.dk.DataAccess.Services.Abstrations;
 using DanskAkvakultur.dk.Shared.Configurations.Abstractions;
 using DanskAkvakultur.dk.Shared.Events;
+using DanskAkvakultur.dk.Shared.Models.Information;
 using DanskAkvakultur.dk.Shared.Models.Score;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -59,14 +59,13 @@ namespace DanskAkvakultur.dk.DataAccess.Services
                 OnLeaderboardUpdated(args);
             });
 
-            HubConnection?.On<string, string>("ReceiveAnimalInformationData", (name, data) =>
+            HubConnection?.On<AnimalInformation>("ReceiveAnimalInformationData", (information) =>
             {
                 _logger.LogInformation("Received animal information data from server.");
 
                 var args = new PlayerAnimalChoiceEventArgs
                 {
-                    AnimalName = name,
-                    Information = data
+                    Information = information
                 };
 
                 OnAnimalChoosen(args);
