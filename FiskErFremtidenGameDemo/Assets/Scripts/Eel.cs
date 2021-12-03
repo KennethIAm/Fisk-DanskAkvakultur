@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Eel : MonoBehaviour
-{   
+{
     private float _hungerValue;
     private bool _isAlive;
     private int _age;
     private string _wantedFood;
     private bool _isBreedable;
     private bool _isExtractable;
+    private GameObject _prefab;
+    private bool _hasBred = false;
 
-    public void Init(float hungerValue = 50f, bool isalive = true, int age = 1, string wantedFood = "wet", bool isBreedable = false)
+    public void Init(GameObject prefab, float hungerValue = 50f, bool isalive = true, int age = 1, string wantedFood = "wet", bool isBreedable = false)
     {
+        _prefab = prefab;
         _hungerValue = hungerValue;
         _isAlive = isalive;
         _age = age;
@@ -20,10 +23,16 @@ public class Eel : MonoBehaviour
         _isBreedable = isBreedable;
     }
 
+    public GameObject Prefab
+    {
+        get { return _prefab; }
+        set { _prefab = value; }
+    }
+
+
     public float HungerValue
     {
         get { return _hungerValue; }
-
     }
 
     public string WantedFood
@@ -87,12 +96,16 @@ public class Eel : MonoBehaviour
 
         if (Age > 5) _isBreedable = true;
 
-        if (Age > 5) _isExtractable = true;
+        if (Age > 20) _isExtractable = true;
     }
 
     public void Breed()
     {
-
+        if (!_hasBred)
+        {
+            Instantiate(_prefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0), Quaternion.identity);
+            _hasBred = true;
+        }
     }
 
 }

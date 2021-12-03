@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EelController : MonoBehaviour
 {
+    [SerializeField]
+    GameObject _prefab;
+
     bool isHungry = true;
     bool isAgeing = false;
     public Eel _eel;
@@ -14,7 +17,7 @@ public class EelController : MonoBehaviour
     {
         gameObject.AddComponent<Eel>();
         _eel = gameObject.GetComponent<Eel>();
-        _eel.Init();
+        _eel.Init(prefab:_prefab);
     }
 
     // Update is called once per frame
@@ -26,16 +29,16 @@ public class EelController : MonoBehaviour
             StartCoroutine(DecreseHunger(2));
         }
 
-        if (!_eel.IsAlive)
-        {
-            Destroy(gameObject);
-        }
+        if (!_eel.IsAlive) Destroy(gameObject);
+
 
         if (!isAgeing)
         {
             isAgeing = true;
             StartCoroutine(StartAgeing(5));
         }
+
+        if (_eel.IsBreedable) FindPartner();
     }
 
     IEnumerator DecreseHunger(float timeS)
@@ -59,6 +62,11 @@ public class EelController : MonoBehaviour
     public void GetFood(Food food)
     {
         _eel.Eat(food);
+    }
+
+    private void FindPartner()
+    {
+        _eel.Breed();
     }
 
 

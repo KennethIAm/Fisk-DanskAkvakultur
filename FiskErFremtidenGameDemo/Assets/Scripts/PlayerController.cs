@@ -49,11 +49,16 @@ public class PlayerController : MonoBehaviour
 
     public void FeedEel()
     {
-        foreach (EelController eel in _EelsInScene)
-            if (eel.isActiveAndEnabled)
-            {
-                eel.GetFood(_currentFood);
-            }
+        if (_currentFood != null)
+        {
+            foreach (EelController eel in _EelsInScene)
+                if (eel.isActiveAndEnabled)
+                {
+                    eel.GetFood(_currentFood);
+                }
+        }
+        else
+            print("No Food Chosen!");
     }
 
     private void FindEelsInScene()
