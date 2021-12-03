@@ -2,6 +2,9 @@
 using DanskAkvakultur.dk.Shared.Models.Score;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
 {
@@ -23,6 +26,55 @@ namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
 
             Assert.IsNotNull(_random);
             Assert.IsInstanceOf<Random>(_random);
+        }
+
+        [TestCase(1, 3000, 10)]
+        public void GetAllAsync_NotNullOrEmpty_ShouldGetCollectionOfData(decimal minScore, decimal maxScore, int iterations)
+        {
+            // Arrange
+            // A collection of created scores, used to validating the result.
+            Guid[] createdScores = new Guid[iterations];
+            Guid[] filteredScores = new Guid[iterations];
+
+            // Act
+            List<IScore> actualScores = new();
+
+            // Assert
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                for (int i = 0; i < iterations; i++)
+                {
+                    IScore moqScore = new ScoreModel
+                    {
+                        ClientId = Guid.NewGuid(),
+                        Score = minScore + ((decimal)_random.NextDouble() * (maxScore - minScore)),
+                        ScoreRegistered = DateTime.Now
+                    };
+
+                    var score = await _moqRepository.CreateAsync(moqScore);
+                    createdScores[i] = score;
+                }
+            });
+
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                actualScores = await _moqRepository.GetAllAsync();                
+            });
+
+            Assert.IsNotNull(actualScores);
+            Assert.IsNotEmpty(filteredScores);
+
+            // Filter the actual scores, from the created scores.
+            filteredScores = actualScores
+                .Where(x => createdScores
+                .Any(y => y.Equals(x.ClientId)))
+                .Select(x => x.ClientId)
+                .ToArray();
+
+            Assert.IsNotNull(filteredScores);
+            Assert.IsNotEmpty(filteredScores);
+            Assert.AreEqual(createdScores.Length, filteredScores.Length);
+            Assert.Pass($"Collection is valid. Created {iterations} scores, then filtered the created scores from the actual dataset.");
         }
 
         [TestCase(1, 3000)]
