@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DanskAkvakultur.dk.Shared.Models.Information
+﻿namespace DanskAkvakultur.dk.Shared.Models.Information
 {
     /// <summary>
     /// Handles the information about the animal type.

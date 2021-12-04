@@ -3,7 +3,6 @@ using DanskAkvakultur.dk.Shared.Models.Score;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
@@ -47,7 +46,8 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
             return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task GetAnimalInformation(string name)
+        [HubMethodName("GetAnimalInformation")]
+        public async Task GetAnimalInformationAsync(string name)
         {
             _logger.LogInformation($"Getting information from animal {name}");
 
@@ -59,7 +59,8 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
             }
         }
 
-        public async Task UpdateLeaderboard(decimal score)
+        [HubMethodName("UpdateLeaderboard")]
+        public async Task UpdateLeaderboardAsync(decimal score)
         {
             var obj = new ScoreModel
             {
@@ -80,7 +81,8 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
             }
         }
 
-        public async Task SendMessage(string user, string message)
+        [HubMethodName("SendMessage")]
+        public async Task SendMessageAsync(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }

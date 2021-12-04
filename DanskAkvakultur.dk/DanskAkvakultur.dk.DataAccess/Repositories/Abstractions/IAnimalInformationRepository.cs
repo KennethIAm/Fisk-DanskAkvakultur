@@ -1,8 +1,4 @@
 ﻿using DanskAkvakultur.dk.Shared.Models.Information;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.DataAccess.Repositories.Abstractions

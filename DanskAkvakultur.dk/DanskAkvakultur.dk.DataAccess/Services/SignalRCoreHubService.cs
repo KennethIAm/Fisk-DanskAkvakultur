@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.DataAccess.Hubs
@@ -27,6 +24,18 @@ namespace DanskAkvakultur.dk.DataAccess.Hubs
 
         public HubConnection HubConnection => _hubConnection;
 
+        ///// <summary>
+        ///// Returns the state of the connection. True if connected, otherwise false.
+        ///// </summary>
+        public bool IsConnected =>
+            _hubConnection.State == HubConnectionState.Connected;
+
+        /// <summary>
+        /// Gets the connection id. This value is cleared when no connection is made.
+        /// </summary>
+        protected string ConnectionId =>
+            _hubConnection.ConnectionId;
+
         /// <summary>
         /// Starts a default connection with the hub.
         /// </summary>
@@ -47,18 +56,6 @@ namespace DanskAkvakultur.dk.DataAccess.Hubs
         {
             await _hubConnection.SendAsync("SendMessage", $"{ConnectionId}", "Hello, I'm also doing a simulation!");
         }
-
-        ///// <summary>
-        ///// Returns the state of the connection. True if connected, otherwise false.
-        ///// </summary>
-        public bool IsConnected =>
-            _hubConnection.State == HubConnectionState.Connected;
-
-        /// <summary>
-        /// Gets the connection id. This value is cleared when no connection is made.
-        /// </summary>
-        protected string ConnectionId =>
-            _hubConnection.ConnectionId;
 
         /// <summary>
         /// Disposes the <see cref="HubConnection"/>.
