@@ -10,15 +10,21 @@ using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.DataAccess.Repositories
 {
+    /// <inheritdoc/>
     public class DbAnimalInformationRepository : IAnimalInformationRepository
     {
         private readonly IDbManager _dbManager;
 
+        /// <summary>
+        /// This constructor initializes a new DbAnimalInformationRepository, with the required dependencies of (<paramref name="dbManager"/>).
+        /// </summary>
+        /// <param name="dbManager">A required <see cref="IDbManager"/>, used to manage several features in the repository.</param>
         public DbAnimalInformationRepository(IDbManager dbManager)
         {
             _dbManager = dbManager;
         }
 
+        /// <inheritdoc/>
         public async Task<AnimalInformation> GetByNameAsync(string name)
         {
             if (string.IsNullOrEmpty(name))

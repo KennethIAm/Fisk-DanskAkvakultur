@@ -12,11 +12,20 @@ using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.DataAccess.Services
 {
+    /// <summary>
+    /// This service handles the client requests from the Virtual Simulation Hub, which inherits <see cref="SignalRCoreHubService"/> and implements <see cref="ISimulationService"/>.
+    /// </summary>
     public class SimulationClientService : SignalRCoreHubService, ISimulationService
     {
         private readonly ILogger<SimulationClientService> _logger;
         private readonly ISimulationHubSettings _settings;
 
+        /// <summary>
+        /// This constructor initializes a new SimulationClientService, with the required dependencies of 
+        /// (<paramref name="logger"/>, <paramref name="settings"/>). This contructor uses the Absolute Uri of the <see cref="ISimulationHubSettings"/> to the base.
+        /// </summary>
+        /// <param name="logger">A required dependency used for logging purposes.</param>
+        /// <param name="settings">A required dependency used for getting the setting to the Simulation Hub.</param>
         public SimulationClientService(ILogger<SimulationClientService> logger, ISimulationHubSettings settings)
             : base(logger, settings.AbsoluteUri)
         {
@@ -24,6 +33,10 @@ namespace DanskAkvakultur.dk.DataAccess.Services
             _settings = settings;
         }
 
+        /// <summary>
+        /// Invokes the <see cref="LeaderboardUpdatedEventArgs"/> event handler.
+        /// </summary>
+        /// <param name="e">The event to invoke.</param>
         protected virtual void OnLeaderboardUpdated(LeaderboardUpdatedEventArgs e)
         {
             EventHandler<LeaderboardUpdatedEventArgs> handler = LeaderboardUpdated;
@@ -34,6 +47,10 @@ namespace DanskAkvakultur.dk.DataAccess.Services
             }
         }
 
+        /// <summary>
+        /// Invokes the <see cref="PlayerAnimalChoiceEventArgs"/> event handler.
+        /// </summary>
+        /// <param name="e">The event to invoke.</param>
         protected virtual void OnAnimalChoosen(PlayerAnimalChoiceEventArgs e)
         {
             EventHandler<PlayerAnimalChoiceEventArgs> handler = AnimalChoosen;
@@ -44,6 +61,10 @@ namespace DanskAkvakultur.dk.DataAccess.Services
             }
         }
 
+        /// <summary>
+        /// Starts a connection to the hub. With registered handlers which are invoked on the hub, whenever the methods are called. (ReceiveLeaderboardData, ReceiveAnimalInformationData).
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation that connects to the hub.</returns>
         protected override Task StartConnectionAsync()
         {
             HubConnection?.On<ScoreModel[]>("ReceiveLeaderboardData", (data) =>
@@ -74,11 +95,13 @@ namespace DanskAkvakultur.dk.DataAccess.Services
             return base.StartConnectionAsync();
         }
 
+        /// <inheritdoc/>
         public async Task ConnectAsync()
         {
             await this.StartConnectionAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<bool> UpdateLeaderboardAsync(decimal value)
         {
             try
@@ -95,6 +118,7 @@ namespace DanskAkvakultur.dk.DataAccess.Services
             }
         }
 
+        /// <inheritdoc/>
         public async Task<bool> UpdateAnimalInformationAsync(string name)
         {
             try
@@ -110,8 +134,10 @@ namespace DanskAkvakultur.dk.DataAccess.Services
             }
         }
 
+        /// <inheritdoc/>
         public event EventHandler<LeaderboardUpdatedEventArgs> LeaderboardUpdated;
 
+        /// <inheritdoc/>
         public event EventHandler<PlayerAnimalChoiceEventArgs> AnimalChoosen;
     }
 }

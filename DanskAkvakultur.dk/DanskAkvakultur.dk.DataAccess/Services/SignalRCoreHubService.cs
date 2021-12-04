@@ -13,6 +13,12 @@ namespace DanskAkvakultur.dk.DataAccess.Hubs
         private readonly ILogger<SignalRCoreHubService> _logger;
         private readonly HubConnection _hubConnection;
 
+        /// <summary>
+        /// This constructor initializes a new SignalRCoreHubService with the specified dependencies of 
+        /// (<paramref name="logger"/>, <paramref name="absoluteUri"/>).
+        /// </summary>
+        /// <param name="logger">A required dependency used for logging purposes.</param>
+        /// <param name="absoluteUri">A required dependency used to set the <see cref="HubConnectionBuilder"/> Url.</param>
         protected SignalRCoreHubService(ILogger<SignalRCoreHubService> logger, Uri absoluteUri)
         {
             _logger = logger;
@@ -50,11 +56,6 @@ namespace DanskAkvakultur.dk.DataAccess.Hubs
             });
 
             await _hubConnection.StartAsync();
-        }
-
-        protected virtual async Task SendAsync()
-        {
-            await _hubConnection.SendAsync("SendMessage", $"{ConnectionId}", "Hello, I'm also doing a simulation!");
         }
 
         /// <summary>

@@ -8,6 +8,9 @@ namespace DanskAkvakultur.dk.Shared.Events
     /// </summary>
     public class PlayerAnimalChoiceEventArgs : EventArgs
     {
+        /// <summary>
+        /// Gets the information about an animal. This property is set when the even is fired.
+        /// </summary>
         public AnimalInformation Information { get; set; }
     }
 }

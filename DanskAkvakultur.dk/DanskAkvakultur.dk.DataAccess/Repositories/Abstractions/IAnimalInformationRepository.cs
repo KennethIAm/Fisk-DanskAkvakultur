@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.DataAccess.Repositories.Abstractions
 {
+    /// <summary>
+    /// Represents a generic Animal Information Repository, provides the ability to access data within the repository.
+    /// </summary>
     public interface IAnimalInformationRepository
     {
         /// <summary>

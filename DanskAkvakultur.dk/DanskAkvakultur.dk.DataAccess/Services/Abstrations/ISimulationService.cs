@@ -24,8 +24,18 @@ namespace DanskAkvakultur.dk.DataAccess.Services.Abstrations
         ///// </summary>
         public bool IsConnected { get; }
 
+        /// <summary>
+        /// Updates the leaderboard with a given value.
+        /// </summary>
+        /// <param name="value">Represents the value to be created on the leaderbaord.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation returning true if succeed otherwise false.</returns>
         Task<bool> UpdateLeaderboardAsync(decimal value);
 
+        /// <summary>
+        /// Updates the animal information data by given animal name.
+        /// </summary>
+        /// <param name="name">Represents the name of the animal.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation returning true if the animal was found, otherwise false.</returns>
         Task<bool> UpdateAnimalInformationAsync(string name);
 
         /// <summary>

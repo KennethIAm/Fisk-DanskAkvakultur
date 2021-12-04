@@ -3,7 +3,7 @@
 namespace DanskAkvakultur.dk.DataAccess.Repositories.ORM
 {
     /// <summary>
-    /// This class represents a one-to-one mapped database entity.
+    /// This class is an ORM, used to map entitie(s) from a data source with a one-to-one relationship.
     /// </summary>
     public class LeaderboardDataView
     {

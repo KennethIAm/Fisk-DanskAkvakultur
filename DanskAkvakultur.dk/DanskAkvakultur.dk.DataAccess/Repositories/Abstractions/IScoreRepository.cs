@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace DanskAkvakultur.dk.DataAccess.Repositories.Abstractions
 {
     /// <summary>
-    /// Represents a generic Score Repository, used to access a leaderboard.
+    /// Represents a generic Score Repository, provides the ability to access data within the repository.
     /// </summary>
     public interface IScoreRepository
     {

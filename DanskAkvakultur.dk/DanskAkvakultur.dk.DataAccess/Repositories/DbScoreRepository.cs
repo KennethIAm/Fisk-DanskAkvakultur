@@ -17,11 +17,16 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories
     {
         private readonly IDbManager _dbManager;
 
+        /// <summary>
+        /// This constructor initializes a new DbAnimalInformationRepository, with the required dependencies of (<paramref name="dbManager"/>).
+        /// </summary>
+        /// <param name="dbManager">A required <see cref="IDbManager"/>, used to manage several features in the repository.</param>
         public DbScoreRepository(IDbManager dbManager)
         {
             _dbManager = dbManager;
         }
 
+        /// <inheritdoc/>
         public async Task<Guid> CreateAsync(IScore obj)
         {
             if (obj is null)

@@ -12,7 +12,7 @@ namespace DanskAkvakultur.dk.DataAccess.Factories
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        /// <returns></returns>
+        /// <returns>An instance of <see cref="SqlConnection"/> with the provided arguments.</returns>
         SqlConnection CreateConnection(string username, string password);
     }
 }

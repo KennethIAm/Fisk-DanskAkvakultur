@@ -2,6 +2,9 @@
 
 namespace DanskAkvakultur.dk.DataAccess.Repositories.ORM
 {
+    /// <summary>
+    /// This class is an ORM, used to map entitie(s) from a data source with a one-to-one relationship.
+    /// </summary>
     public class DisplayAnimalInformationView
     {
         public string AnimalName { get; set; }
