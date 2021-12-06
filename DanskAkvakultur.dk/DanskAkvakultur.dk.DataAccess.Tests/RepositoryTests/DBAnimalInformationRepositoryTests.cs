@@ -21,7 +21,7 @@ namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
             Assert.IsInstanceOf<IAnimalInformationRepository>(_moqRepository, $"Repository was not instance of {nameof(IAnimalInformationRepository)}.");
         }
 
-        [TestCase("Ål")]
+        [TestCase("Eel")]
         public void GetByNameAsync_ValidParameters_ShouldReturnAnimalInformation(string animalName)
         {
             // Arrange
@@ -38,7 +38,7 @@ namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
             Assert.IsNotNull(actInfo);
             Assert.AreNotSame(actInfo.Animal.Name, "");
             Assert.IsNotEmpty(actInfo.Animal.Name);
-            Assert.AreEqual(animalName, actInfo.Animal.Name);
+            Assert.AreEqual("Ål", actInfo.Animal.Name);
             Assert.Pass($"Animal information was returned for {actInfo.Animal.Name}.");
         }
 

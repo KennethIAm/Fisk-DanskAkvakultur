@@ -6,28 +6,39 @@
     <link rel="stylesheet" href="/libs/engine/1.0.0/TemplateData/style.css" />
 </head>
 
-<ShowAlertMessage Message="@(exceptionMessage)" Alert="@(MessageAlert.Error)" />
+@if (!string.IsNullOrEmpty(exceptionMessage))
+{
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <ShowAlertMessage Message="@(exceptionMessage)" Alert="@(MessageAlert.Warning)" />
+        <button @onclick="async () => await LoadGameEngine()" class="btn btn-sm btn-warning text-uppercase">
+            Genindlæs simulation
+        </button>
+    </div>
+}
 
 <ShowAlertMessage Message="@(gameEngineMessage)" Alert="@(MessageAlert.Info)" />
 
 <div id="unity-container" class="unity-desktop">
-    <canvas id="unity-canvas" style="@(canvasCssStyle)"></canvas>
-    <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-            <div id="unity-progress-bar-full"></div>
+    @if (module is not null)
+    {
+        <canvas id="unity-canvas" style="@(canvasCssStyle)"></canvas>
+        <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
         </div>
-    </div>
-    <div id="unity-mobile-warning">
-        WebGL builds er ikke supporteret for mobile enheder.
-        <div class="alert alert-warning" role="alert">
+        <div id="unity-mobile-warning">
+            WebGL builds er ikke supporteret for mobile enheder.
+            <div class="alert alert-warning" role="alert">
+            </div>
         </div>
-    </div>
-    <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">FiskErFremtidenGameDemo</div>
-    </div>
+        <div id="unity-footer">
+            <div id="unity-webgl-logo"></div>
+            <div id="unity-fullscreen-button"></div>
+            <div id="unity-build-title">FiskErFremtidenGameDemo</div>
+        </div>
+    }
     <div class="footer-simulation">
         <div>
             <div class="shadow rounded">
@@ -115,6 +126,9 @@
                                 case 2:
                                     <th><i class="fas fa-star"></i></th>
                                     break;
+                                default:
+                                    <th><i class="fas fa-star"></i></th>
+                                    break;
                             }
                         </tr>
                     }
@@ -133,10 +147,10 @@
     private List<IScore> tempData;
     private DateTime lastUpdated;
     private AnimalInformation information;
-    private IJSObjectReference? module;
-    private DotNetObjectReference<VirtualSimulation>? objRef;
+    private IJSObjectReference module;
+    private DotNetObjectReference<VirtualSimulation> objRef;
     private string canvasCssStyle;
-    private string? gameEngineMessage;
+    private string gameEngineMessage;
     private string exceptionMessage;
 
     protected override async Task OnInitializedAsync()
@@ -145,8 +159,7 @@
         SimulationService.AnimalChoosen += OnPlayerChoosenAnimal;
 
         await SimulationService.ConnectAsync();
-        base.ShouldRender();
-        base.StateHasChanged();
+        StateHasChanged();
 
         gameEngineMessage = await LoadGameEngine();
     }
@@ -167,6 +180,10 @@
             catch (Exception)
             {
                 exceptionMessage = "Fejlede indlæsning af Core Engine.";
+            }
+            finally
+            {
+                StateHasChanged();
             }
         }
     }
@@ -190,8 +207,10 @@
         StateHasChanged();
     }
 
-    public async ValueTask<string?> LoadGameEngine()
+    public async ValueTask<string> LoadGameEngine()
     {
+        exceptionMessage = string.Empty;
+
         try
         {
             return await module.InvokeAsync<string>("loadUnityEngine");
@@ -202,7 +221,11 @@
 
             exceptionMessage = "Fejlede indlæsning af Virtuel Simulation.";
 
-            return null;
+            return string.Empty;
+        }
+        finally
+        {
+            StateHasChanged();
         }
     }
 
