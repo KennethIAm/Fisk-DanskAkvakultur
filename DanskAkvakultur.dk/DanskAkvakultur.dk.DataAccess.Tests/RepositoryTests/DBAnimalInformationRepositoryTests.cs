@@ -1,5 +1,4 @@
 ﻿using DanskAkvakultur.dk.DataAccess.Repositories.Abstractions;
-using DanskAkvakultur.dk.DataAccess.Repositories;
 using DanskAkvakultur.dk.Shared.Models.Information;
 using NUnit.Framework;
 using System;
@@ -15,37 +14,74 @@ namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
         public void SetUp()
         {
             // Assert
-            _moqRepository = UnitTestUtilities.SetupAnimalRepositoryTest(nameof(IAnimalInformationRepository)) as IAnimalInformationRepository;
+            _moqRepository = UnitTestUtilities.SetupRepositoryTest(nameof(IAnimalInformationRepository)) as IAnimalInformationRepository;
+
+            // Assert
+            Assert.IsNotNull(_moqRepository, $"While attempting to setup test. {nameof(_moqRepository)} was null.");
+            Assert.IsInstanceOf<IAnimalInformationRepository>(_moqRepository, $"Repository was not instance of {nameof(IAnimalInformationRepository)}.");
+        }
+
+        [TestCase("Ål")]
+        public void GetByNameAsync_ValidParameters_ShouldReturnAnimalInformation(string animalName)
+        {
+            // Arrange
+
+            // Act
+            AnimalInformation actInfo = null;
+
+            // Assert
+            Assert.That(async () =>
+            {
+                actInfo = await _moqRepository.GetByNameAsync(animalName);
+            }, Throws.Nothing);
+
+            Assert.IsNotNull(actInfo);
+            Assert.AreNotSame(actInfo.Animal.Name, "");
+            Assert.IsNotEmpty(actInfo.Animal.Name);
+            Assert.AreEqual(animalName, actInfo.Animal.Name);
+            Assert.Pass($"Animal information was returned for {actInfo.Animal.Name}.");
         }
 
         [Test]
-        public void GetByNameAsync_ValidParametres_ShouldReturnSpecifiedAnimal()
+        public void GetByNameAsync_InvalidNameIsEmpty_ShouldThrowArgumentException()
         {
             // Arrange
-            string animalName = "Ål";
-            AnimalInformation info;
+            string animalName = string.Empty;
 
             // Act
-            info = _moqRepository.GetByNameAsync(animalName).Result;
+            AnimalInformation actInfo = null;
 
             // Assert
-            Assert.IsNotNull(info);
-            Assert.AreEqual(animalName, info.Animal);
-            Assert.IsNotNull(info.BriefDescription);
+            var ex = Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                actInfo = await _moqRepository.GetByNameAsync(animalName);
+            });
+
+            Assert.IsNull(actInfo);
+            Assert.IsNotNull(ex);
+            Assert.IsNotEmpty(ex.Message);
+            Assert.Pass(ex.Message);
         }
 
         [Test]
-        public void GetByNameAsync_InvalidParametres_ShouldNotReturnSpecifiedAnimal()
+        public void GetByNameAsync_InvalidNameIsNull_ShouldThrowArgumentException()
         {
             // Arrange
-            string animalName = "Abe";
-            AnimalInformation info;
+            string animalName = null;
 
             // Act
-            info = _moqRepository.GetByNameAsync(animalName).Result;
+            AnimalInformation actInfo = null;
 
             // Assert
-            Assert.IsNull(info);
+            var ex = Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                actInfo = await _moqRepository.GetByNameAsync(animalName);
+            });
+
+            Assert.IsNull(actInfo);
+            Assert.IsNotNull(ex);
+            Assert.IsNotEmpty(ex.Message);
+            Assert.Pass(ex.Message);
         }
     }
 }
