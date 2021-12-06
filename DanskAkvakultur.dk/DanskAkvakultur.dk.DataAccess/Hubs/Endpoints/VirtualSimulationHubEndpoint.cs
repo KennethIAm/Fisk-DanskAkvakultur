@@ -109,7 +109,7 @@ namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints
 
                 var leaderboard = await _scoreRepository.GetAllAsync();
 
-                await Clients.Caller.SendAsync("ReceiveLeaderboardData", leaderboard.ToArray());
+                await Clients.All.SendAsync("ReceiveLeaderboardData", leaderboard.ToArray());
             }
         }
 

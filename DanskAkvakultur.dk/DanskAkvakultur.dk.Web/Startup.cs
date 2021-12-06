@@ -39,6 +39,8 @@ namespace DanskAkvakultur.dk.Web
             var simSettings = Configuration.GetSection("Simulation").Get<SimulationSettings>();
             var connSettings = Configuration.GetSection("DbConfig").Get<SqlDbConnectionSettings>();
 
+            System.Console.WriteLine($"DEBUGGING: {connSettings.ServerHost}");
+
             services.AddScoped<ISimulationHubSettings>(s =>
             {
                 var navManager = s.GetService<NavigationManager>();
