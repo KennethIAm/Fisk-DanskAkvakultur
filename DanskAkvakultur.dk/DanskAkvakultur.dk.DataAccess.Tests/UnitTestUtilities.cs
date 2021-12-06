@@ -17,6 +17,13 @@ namespace DanskAkvakultur.dk.DataAccess.Tests
             _ => throw new ArgumentOutOfRangeException(nameof(repository), "Given repository is not valid.")
         };
 
+        public static object SetupAnimalRepositoryTest(string repository) => repository switch
+        {
+            nameof(IAnimalInformationRepository) =>
+                new DbAnimalInformationRepository(GetRepositoryDependencies()),
+            _ => throw new ArgumentOutOfRangeException(nameof(repository), "Given repository is not valid.")
+        };
+
         private static IDbManager GetRepositoryDependencies()
         {
             var config = BuildConfiguration();
