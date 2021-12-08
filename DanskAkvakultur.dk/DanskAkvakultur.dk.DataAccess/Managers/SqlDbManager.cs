@@ -35,7 +35,7 @@ namespace DanskAkvakultur.dk.DataAccess.Managers
         /// </summary>
         /// <returns></returns>
         [Obsolete("When this method is used, it will show a warning. This method is only used for test purposes.")]
-        private SqlConnection GetTestSqlConnection() => _factory.CreateConnection("sa", "Kode1234!");
+        private SqlConnection GetTestSqlConnection() => _factory.CreateConnection("sa", "Fisk123!");
 
         /// <summary>
         /// Gets a <see cref="SqlConnection"/>.
