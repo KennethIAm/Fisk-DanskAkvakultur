@@ -90,13 +90,13 @@ public class Eel : MonoBehaviour
     {
         _age += 1;
 
-        if (Age <= 5) { WantedFood = "wet"; }
-        else if (Age > 5 && Age < 10) { WantedFood = "dry"; }
+        if (Age <= 3) { WantedFood = "wet"; }
+        else if (Age > 3 && Age < 5) { WantedFood = "dry"; }
         else { WantedFood = "beef"; }
 
         if (Age > 5) _isBreedable = true;
 
-        if (Age > 20) _isExtractable = true;
+        if (Age > 7) _isExtractable = true;
     }
 
     public void Breed()

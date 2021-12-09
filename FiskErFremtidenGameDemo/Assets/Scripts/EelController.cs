@@ -1,11 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EelController : MonoBehaviour
 {
     [SerializeField]
     GameObject _prefab;
+
+    [SerializeField]
+    Slider _healthBar;
+
+    [SerializeField]
+    RawImage _WantedFoodimg;
+
+    [SerializeField]
+    Texture2D foodimg1, foodimg2, foodimg3;
+
 
     bool isHungry = true;
     bool isAgeing = false;
@@ -23,6 +34,21 @@ public class EelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _healthBar.value = _eel.HungerValue;
+
+        if (_eel.WantedFood == "wet")
+        {
+            _WantedFoodimg.texture = foodimg1;
+        }
+        else if (_eel.WantedFood == "dry")
+        {
+            _WantedFoodimg.texture = foodimg2;
+        }
+        else
+        {
+            _WantedFoodimg.texture = foodimg3;
+        }
+
         if (isHungry)
         {
             isHungry = false;
@@ -44,7 +70,7 @@ public class EelController : MonoBehaviour
     IEnumerator DecreseHunger(float timeS)
     {
         yield return new WaitForSeconds(timeS);
-        _eel.Hunger(2);
+        _eel.Hunger(10  );
         if (_eel.HungerValue <= 0)
         {
             _eel.Die();

@@ -12,6 +12,9 @@ public class SignalRTests : MonoBehaviour
 
     [SerializeField]
     PlayerController playerController;
+
+    [SerializeField]
+    Button EndButton;
     
     [DllImport("__Internal")]
     private static extern void SendLeaderboard(float score);
@@ -21,6 +24,7 @@ public class SignalRTests : MonoBehaviour
 
     public void SendScore()
     {
+        EndButton.gameObject.SetActive(false);
         print(playerController.Points);
         SendLeaderboard(playerController.Points);
     }
