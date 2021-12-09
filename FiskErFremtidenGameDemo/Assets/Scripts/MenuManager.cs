@@ -32,4 +32,15 @@ public class MenuManager : MonoBehaviour
         print("Data to send to server and generate sim of: Animal - " + simManager.ChosenAnimal + " opdrættelsesmetode - " + simManager.FarmingMethod);
         SceneManager.LoadScene("Test scene Jolle");
     }
+
+    /// <summary>
+    ///  Shows info in simulation for player controlls and mechanics.
+    /// </summary>
+    public void ShowInfo(GameObject infoBTN)
+    {
+        if (infoBTN.activeInHierarchy)
+            infoBTN.SetActive(false);
+        else
+            infoBTN.SetActive(true);
+    }
 }
