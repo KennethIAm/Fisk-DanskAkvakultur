@@ -93,4 +93,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timeS);
     }
 
+    public void ShowInfo(GameObject infoBTN)
+    {
+        if (infoBTN.activeInHierarchy)
+            infoBTN.SetActive(false);
+        else
+            infoBTN.SetActive(true);
+    }
+
 }
