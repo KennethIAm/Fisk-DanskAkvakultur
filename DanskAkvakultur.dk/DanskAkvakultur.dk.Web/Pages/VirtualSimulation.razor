@@ -6,19 +6,19 @@
     <link rel="stylesheet" href="/libs/engine/1.0.0/TemplateData/style.css" />
 </head>
 
-@if (!string.IsNullOrEmpty(exceptionMessage))
-{
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <ShowAlertMessage Message="@(exceptionMessage)" Alert="@(MessageAlert.Warning)" />
-        <button @onclick="async () => await LoadGameEngine()" class="btn btn-sm btn-warning text-uppercase">
-            Genindlæs simulation
-        </button>
-    </div>
-}
-
 <ShowAlertMessage Message="@(gameEngineMessage)" Alert="@(MessageAlert.Info)" />
 
 <div id="unity-container" class="unity-desktop">
+    @if (!string.IsNullOrEmpty(exceptionMessage))
+    {
+        <div class="d-grid gap-1 col-6 mx-auto">
+            <ShowAlertMessage Message="@(exceptionMessage)" Alert="@(MessageAlert.Warning)" />
+            <button @onclick="async () => await LoadGameEngineAsync()" class="btn btn-sm btn-warning text-uppercase">
+                Klik for at genindlæse simulation!
+            </button>
+        </div>
+    }
+
     @if (module is not null)
     {
         <canvas id="unity-canvas" style="@(canvasCssStyle)"></canvas>
@@ -49,8 +49,8 @@
             <br />
             <div class="shadow rounded">
 
-                <button class="btn btn-primary btn-lg text-uppercase" style="width:250px;" disabled="@(!SimulationService.IsConnected)" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHighscore" aria-controls="offcanvasWithBackdrop">
-                    vis rasultattavle
+                <button class="btn btn-primary btn-lg text-uppercase" style="width:250px;" disabled="@(!SimulationService.IsConnected || (tempData is null || !tempData.Any()))" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHighscore" aria-controls="offcanvasWithBackdrop">
+                    vis resultattavle
                 </button>
             </div>
         </div>
@@ -135,6 +135,10 @@
                 </tbody>
             </table>
         }
+        else
+        {
+            <p>Inlæser resultater...</p>
+        }
     </div>
 </div>
 
@@ -153,15 +157,26 @@
     private string gameEngineMessage;
     private string exceptionMessage;
 
+    private bool moduleDisposed { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         SimulationService.LeaderboardUpdated += OnLeaderboardUpdated;
         SimulationService.AnimalChoosen += OnPlayerChoosenAnimal;
 
-        await SimulationService.ConnectAsync();
-        StateHasChanged();
+        try
+        {
+            var connectTask = SimulationService.ConnectAsync();
+            await Task.WhenAll(connectTask);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning($"Error occurred while initializing the component.");
 
-        gameEngineMessage = await LoadGameEngine();
+            Logger.LogError(ex, ex.Message);
+        }
+
+        gameEngineMessage = await LoadGameEngineAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -190,30 +205,42 @@
 
     public void OnLeaderboardUpdated(object sender, LeaderboardUpdatedEventArgs e)
     {
-        Logger.LogInformation($"Received data from {sender}, last updated: {e.DataSetUpdated}");
+        try
+        {
+            Logger.LogInformation($"Received data from {sender}, last updated: {e.DataSetUpdated}");
 
-        tempData = e?.ScoreData;
-        lastUpdated = e.DataSetUpdated;
-
-        StateHasChanged();
+            tempData = e?.ScoreData;
+            lastUpdated = e.DataSetUpdated;
+        }
+        finally
+        {
+            StateHasChanged();
+        }
     }
 
     private void OnPlayerChoosenAnimal(object sender, PlayerAnimalChoiceEventArgs e)
     {
-        Logger.LogInformation($"Received animal data from {sender}.");
+        try
+        {
+            Logger.LogInformation($"Received animal data from {sender}.");
 
-        information = e?.Information;
-
-        StateHasChanged();
+            information = e?.Information;
+        }
+        finally
+        {
+            StateHasChanged();
+        }
     }
 
-    public async ValueTask<string> LoadGameEngine()
+    public async Task<string> LoadGameEngineAsync()
     {
         exceptionMessage = string.Empty;
 
         try
         {
-            return await module.InvokeAsync<string>("loadUnityEngine");
+            //if (moduleDisposed || module is null) return string.Empty;
+
+            return await module.InvokeAsync<string>("loadUnityEngine") ?? string.Empty;
         }
         catch (Exception ex)
         {
@@ -222,10 +249,6 @@
             exceptionMessage = "Fejlede indlæsning af Virtuel Simulation.";
 
             return string.Empty;
-        }
-        finally
-        {
-            StateHasChanged();
         }
     }
 
@@ -255,6 +278,8 @@
         {
             try
             {
+                moduleDisposed = true;
+
                 await module.DisposeAsync();
                 await SimulationService.DisposeAsync();
 
