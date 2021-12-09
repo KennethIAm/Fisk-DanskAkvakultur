@@ -5,10 +5,10 @@
     /// </summary>
     public enum DbCredentialType
     {
-        BasicUser,
-        ComplexUser,
-        CreateUser,
-        UpdateUser,
-        DeleteUser
+        BASIC_READ,
+        COMPLEX_READ,
+        CREATE_PERMISSION,
+        UPDATE_PERMISSION,
+        DELETE_PERMISSION
     }
 }

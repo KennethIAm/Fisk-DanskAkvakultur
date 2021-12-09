@@ -32,7 +32,7 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories
 
             AnimalInformation info = null;
 
-            using (var conn = _dbManager.GetSqlConnection(DbCredentialType.BasicUser))
+            using (var conn = _dbManager.GetSqlConnection(DbCredentialType.BASIC_READ))
             {
                 var proc = "[GetAnimalInformationByName]";
                 var values = new
