@@ -22,11 +22,11 @@ namespace DanskAkvakultur.dk.DataAccess.Managers
         /// <inheritdoc/>
         public SqlConnection GetSqlConnection(DbCredentialType connectionType) => connectionType switch
         {
-            DbCredentialType.BasicUser => GetTestSqlConnection(),
-            DbCredentialType.ComplexUser => GetTestSqlConnection(),
-            DbCredentialType.CreateUser => GetTestSqlConnection(),
-            DbCredentialType.UpdateUser => GetTestSqlConnection(),
-            DbCredentialType.DeleteUser => GetTestSqlConnection(),
+            DbCredentialType.BASIC_READ => GetSqlConnectionBasicReader(),
+            DbCredentialType.COMPLEX_READ => GetSqlConnectionComplexSelect(),
+            DbCredentialType.CREATE_PERMISSION => GetSqlConnectionCreatePermission(),
+            DbCredentialType.UPDATE_PERMISSION => GetSqlConnectionUpdatePermission(),
+            DbCredentialType.DELETE_PERMISSION => GetSqlConnectionDeletePermission(),
             _ => throw new ArgumentException("No Connection Type found with used type.", nameof(connectionType))
         };
 
@@ -40,31 +40,31 @@ namespace DanskAkvakultur.dk.DataAccess.Managers
         /// <summary>
         /// Gets a <see cref="SqlConnection"/>.
         /// </summary>
-        /// <returns>An initialized <see cref="SqlConnection"/> with the <see cref="DbCredentialType.BasicUser"/> permission.</returns>
-        private SqlConnection GetSqlConnectionBasicReader() => _factory.CreateConnection("BasicUserReader", "Kode1234!");
+        /// <returns>An initialized <see cref="SqlConnection"/> with the <see cref="DbCredentialType.BASIC_READ"/> permission.</returns>
+        private SqlConnection GetSqlConnectionBasicReader() => _factory.CreateConnection("BasicReadLogin", "Kode1234!");
 
         /// <summary>
         /// Gets a <see cref="SqlConnection"/>.
         /// </summary>
-        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.ComplexUser"/> permission.</returns>
-        private SqlConnection GetSqlConnectionComplexSelect() => _factory.CreateConnection("ComplexUserReader", "Kode1234!");
+        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.COMPLEX_READ"/> permission.</returns>
+        private SqlConnection GetSqlConnectionComplexSelect() => _factory.CreateConnection("ComplexReadLogin", "Kode1234!");
 
         /// <summary>
         /// Gets a <see cref="SqlConnection"/>.
         /// </summary>
-        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.DeleteUser"/> permission.</returns>
-        private SqlConnection GetSqlConnectionDeletePermission() => _factory.CreateConnection("DeleteUserReader", "Kode1234!");
+        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.DELETE_PERMISSION"/> permission.</returns>
+        private SqlConnection GetSqlConnectionDeletePermission() => _factory.CreateConnection("DeletePermissionLogin", "Kode1234!");
 
         /// <summary>
         /// Gets a <see cref="SqlConnection"/>.
         /// </summary>
-        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.UpdateUser"/> permission.</returns>
-        private SqlConnection GetSqlConnectionUpdatePermission() => _factory.CreateConnection("UpdateUserReader", "Kode1234!");
+        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.UPDATE_PERMISSION"/> permission.</returns>
+        private SqlConnection GetSqlConnectionUpdatePermission() => _factory.CreateConnection("UpdatePermissionLogin", "Kode1234!");
 
         /// <summary>
         /// Gets a <see cref="SqlConnection"/>.
         /// </summary>
-        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.CreateUser"/> permission.</returns>
-        private SqlConnection GetSqlConnectionCreatePermission() => _factory.CreateConnection("CreateUserReader", "Kode1234!");
+        /// <returns>An initialized <see cref="SqlConnection"/>with the <see cref="DbCredentialType.CREATE_PERMISSION"/> permission.</returns>
+        private SqlConnection GetSqlConnectionCreatePermission() => _factory.CreateConnection("CreatePermissionLogin", "Kode1234!");
     }
 }

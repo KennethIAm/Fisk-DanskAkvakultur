@@ -42,7 +42,7 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories
                 throw new ArgumentException("Couldn't create score, registration datetime is default.", nameof(obj));
 
             Guid entityId;
-            using (var conn = _dbManager.GetSqlConnection(DbCredentialType.CreateUser))
+            using (var conn = _dbManager.GetSqlConnection(DbCredentialType.CREATE_PERMISSION))
             {
                 string proc = "[CreateLeaderboardScore]";
                 var values = new
@@ -62,7 +62,7 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories
         {
             List<IScore> leaderboard = new();
 
-            using (var conn = _dbManager.GetSqlConnection(DbCredentialType.BasicUser))
+            using (var conn = _dbManager.GetSqlConnection(DbCredentialType.BASIC_READ))
             {
                 string proc = "[GetLeaderboard]";
 
