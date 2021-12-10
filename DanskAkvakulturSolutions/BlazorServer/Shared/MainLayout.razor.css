@@ -1,9 +1,0 @@
-.main-layout {
-    display: flex;
-    background-image: linear-gradient(308deg, #1590c8 8%,rgba(47,180,87,0.46) 100%), 
-        url(/assets/images/landing-page.jpg) !important;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: auto;
-    height: 100vh;
-}
