@@ -62,6 +62,9 @@ public class Eel : MonoBehaviour
         set { _age = value; }
     }
 
+    /// <summary>
+    ///  Hunegr will decrese the objects hunger each time its called.
+    /// </summary>
     public void Hunger(float value)
     {
         _hungerValue = Mathf.Clamp(_hungerValue -= value, 0, 100);
@@ -75,6 +78,9 @@ public class Eel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    ///  Check food Cheks if its the current wanted food for this object.
+    /// </summary>
     private bool CheckFood(Food food)
     {
         if (food.Name.Equals(WantedFood)) return true;
@@ -86,24 +92,34 @@ public class Eel : MonoBehaviour
         _isAlive = false;
     }
 
+    /// <summary>
+    ///  AgeEel will increse the Eels age and set some propeties depending on the age.
+    /// </summary>
     public void AgeEel()
     {
         _age += 1;
 
         if (Age <= 3) { WantedFood = "wet"; }
-        else if (Age > 3 && Age < 5) { WantedFood = "dry"; }
+        else if (Age > 3 && Age < 7) { WantedFood = "dry"; }
         else { WantedFood = "beef"; }
 
         if (Age > 5) _isBreedable = true;
 
-        if (Age > 7) _isExtractable = true;
+        if (Age > 10) _isExtractable = true;
     }
 
+    /// <summary>
+    ///  Breed will chek if This Object has bred and if not crate new on 1 to 3 new objects.
+    /// </summary>
     public void Breed()
     {
         if (!_hasBred)
         {
-            Instantiate(_prefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0), Quaternion.identity);
+            float iterations = Random.Range(1f,3f);
+            for (int i = 0; i < iterations; i++)
+            {
+                Instantiate(_prefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0), Quaternion.identity);
+            }
             _hasBred = true;
         }
     }

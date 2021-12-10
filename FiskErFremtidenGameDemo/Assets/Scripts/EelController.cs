@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class EelController : MonoBehaviour
 {
+    /// <summary>
+    ///  This class performs the actions for the Eel object in the scene.
+    /// </summary>
+
     [SerializeField]
     GameObject _prefab;
 
@@ -67,10 +71,13 @@ public class EelController : MonoBehaviour
         if (_eel.IsBreedable) FindPartner();
     }
 
+    /// <summary>
+    ///  DecreseHunger decreses hunger every (timeS) seconds.
+    /// </summary>
     IEnumerator DecreseHunger(float timeS)
     {
         yield return new WaitForSeconds(timeS);
-        _eel.Hunger(10  );
+        _eel.Hunger(10);
         if (_eel.HungerValue <= 0)
         {
             _eel.Die();
@@ -78,6 +85,9 @@ public class EelController : MonoBehaviour
         isHungry = true;
     }
 
+    /// <summary>
+    ///  StartAgeing will age the obect every (timeS) seconds.
+    /// </summary>
     IEnumerator StartAgeing(float timeS)
     {
         yield return new WaitForSeconds(timeS);

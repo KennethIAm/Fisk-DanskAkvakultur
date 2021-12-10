@@ -47,6 +47,9 @@ public class PlayerController : MonoBehaviour
         else CM.SetActive(false);
     }
 
+    /// <summary>
+    ///  Will feed all the Eels with matching current wanted food and the selected food.
+    /// </summary>
     public void FeedEel()
     {
         if (_currentFood != null)
@@ -61,11 +64,17 @@ public class PlayerController : MonoBehaviour
             print("No Food Chosen!");
     }
 
+    /// <summary>
+    ///  will find all Eels in scene and put them in a list.
+    /// </summary>
     private void FindEelsInScene()
     {
         _EelsInScene = FindObjectsOfType<EelController>();
     }
 
+    /// <summary>
+    ///  will set the current selected food.
+    /// </summary>
     public void SelectFood(Food obj)
     {
         _currentFood = obj;
@@ -79,6 +88,9 @@ public class PlayerController : MonoBehaviour
         obj.gameObject.GetComponent<Image>().color = selectedColor;
     }
 
+    /// <summary>
+    ///  This will extract an eel once it is ready for extraction.
+    /// </summary>
     public IEnumerator ExtractEels(float timeS)
     {
         foreach (EelController eel in _EelsInScene)
@@ -93,6 +105,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timeS);
     }
 
+    /// <summary>
+    ///  Shows info in simulation for player controlls and mechanics.
+    /// </summary>
     public void ShowInfo(GameObject infoBTN)
     {
         if (infoBTN.activeInHierarchy)

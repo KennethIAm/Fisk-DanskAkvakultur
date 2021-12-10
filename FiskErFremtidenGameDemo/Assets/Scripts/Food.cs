@@ -27,7 +27,4 @@ public class Food : MonoBehaviour
         get { return _satisfieValue; }
         set { _satisfieValue = value; }
     }
-
-
-
 }
