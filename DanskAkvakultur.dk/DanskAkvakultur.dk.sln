@@ -13,7 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanskAkvakultur.dk.Shared",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanskAkvakultur.dk.DataAccess", "DanskAkvakultur.dk.DataAccess\DanskAkvakultur.dk.DataAccess.csproj", "{B8140E91-C129-4EB9-A9EA-299FFAD00D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanskAkvakultur.dk.DataAccess.Tests", "DanskAkvakultur.dk.DataAccess.Tests\DanskAkvakultur.dk.DataAccess.Tests.csproj", "{44261CA3-0407-465B-B3BD-03829A9744A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanskAkvakultur.dk.DataAccess.Tests", "DanskAkvakultur.dk.DataAccess.Tests\DanskAkvakultur.dk.DataAccess.Tests.csproj", "{44261CA3-0407-465B-B3BD-03829A9744A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelperNotes", "HelperNotes", "{BAD9143B-2933-4B0C-9605-A704FBAEE5C8}"
+	ProjectSection(SolutionItems) = preProject
+		Notes\Helper Part 1.cs = Notes\Helper Part 1.cs
+		Notes\Helper Part 2.cs = Notes\Helper Part 2.cs
+		Notes\Helper Part 3 - GetByIdAsync Snippet.cs = Notes\Helper Part 3 - GetByIdAsync Snippet.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
