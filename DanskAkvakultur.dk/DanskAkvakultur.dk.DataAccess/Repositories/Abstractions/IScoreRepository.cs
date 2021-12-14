@@ -14,7 +14,7 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories.Abstractions
         /// Gets a collection of scores on the leaderboard.
         /// </summary>
         /// <returns>A <see cref="Task"/>, representing the asynchronous <see cref="List{IScore}"/>.</returns>
-        Task<List<IScore>> GetAllAsync();
+        Task<IEnumerable<IScore>> GetAllAsync();
 
         /// <summary>
         /// Creates a new score for the leaderboard.

@@ -10,7 +10,7 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories.CRUDOperations
     /// <typeparam name="KCriteria">Is used to identify the key used in the <see cref="TAggregate"/>.</typeparam>
     public interface IRepository<TAggregate, KCriteria> :
         IEntityReader<TAggregate, KCriteria>,
-        IEntityCreator<TAggregate>,
+        IEntityCreator<TAggregate, KCriteria>,
         IEntityRemover<TAggregate>,
         IEntityUpdate<TAggregate>
         where TAggregate : IAggregateRoot

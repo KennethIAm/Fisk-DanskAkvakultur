@@ -37,7 +37,7 @@ namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
             Guid[] filteredScores = new Guid[iterations];
 
             // Act
-            List<IScore> actualScores = new();
+            IEnumerable<IScore> actualScores = new List<IScore>();
 
             // Assert
             Assert.DoesNotThrowAsync(async () =>

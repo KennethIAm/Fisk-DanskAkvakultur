@@ -3,6 +3,7 @@ using DanskAkvakultur.dk.Shared.Models.Score;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DanskAkvakultur.dk.Shared.Hubs.Endpoints

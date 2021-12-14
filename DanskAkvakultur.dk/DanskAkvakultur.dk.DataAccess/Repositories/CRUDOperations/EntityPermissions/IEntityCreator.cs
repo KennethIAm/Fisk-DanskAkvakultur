@@ -7,8 +7,13 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories.CRUDOperations.EntityPermis
     /// Provides needed methods for storing data.
     /// </summary>
     /// <typeparam name="TAggregate"></typeparam>
-    public interface IEntityCreator<TAggregate> where TAggregate : IAggregateRoot
+    public interface IEntityCreator<TAggregate, KCriteria> where TAggregate : IAggregateRoot
     {
-        public Task<TAggregate> CreateAsync(TAggregate data);
+        /// <summary>
+        /// Creates an entity, described by the <see cref="TAggregate"/>.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public Task<KCriteria> CreateAsync(TAggregate data);
     }
 }
