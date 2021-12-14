@@ -10,10 +10,10 @@ namespace DanskAkvakultur.dk.DataAccess.Repositories.CRUDOperations.EntityPermis
     public interface IEntityCreator<TAggregate, KCriteria> where TAggregate : IAggregateRoot
     {
         /// <summary>
-        /// Creates an entity, described by the <see cref="TAggregate"/>.
+        /// Creates an entity in the data source, described by the <see cref="TAggregate"/>.
         /// </summary>
         /// <param name="data"></param>
-        /// <returns></returns>
+        /// <returns>The <see cref="KCriteria"/> if the entity is created successfully. Otherwise default value.</returns>
         public Task<KCriteria> CreateAsync(TAggregate data);
     }
 }
