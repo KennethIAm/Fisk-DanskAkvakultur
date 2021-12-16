@@ -28,6 +28,36 @@ namespace DanskAkvakultur.dk.DataAccess.Tests.RepositoryTests
             Assert.IsInstanceOf<Random>(_random);
         }
 
+        [TestCase]
+        public void GetByIdAsync_ValidParamters_ShouldReturnScoreFromLeaderboard()
+        {
+            // Arrange
+            Guid moqId = Guid.NewGuid();
+            decimal rndScore = 1 + ((decimal)_random.NextDouble() * (3000 - 1));
+            DateTime moqDate = DateTime.Now;
+
+            IScore moqScore = new ScoreModel
+            {
+                ClientId = moqId,
+                Score = rndScore,
+                ScoreRegistered = moqDate
+            };
+
+            // Act 
+            IScore actualScore = null;
+
+            // Assert 
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                Guid createdScore = await _moqRepository.CreateAsync(moqScore);
+                actualScore = await _moqRepository.GetByIdAsync(createdScore);
+            });
+
+            Assert.IsNotNull(moqScore);
+            Assert.AreNotEqual(Guid.Empty, actualScore);
+            Assert.AreEqual(moqScore.ClientId, actualScore);
+        }
+
         [TestCase(1, 3000, 10)]
         public void GetAllAsync_NotNullOrEmpty_ShouldGetCollectionOfData(decimal minScore, decimal maxScore, int iterations)
         {
